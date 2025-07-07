@@ -84,10 +84,10 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="container fixed top-4 px-6 py-4 inset-x-0 w-[95%] bg-background/20 backdrop-blur-md border border-foreground/10 rounded-full z-30"
+        className="container fixed top-4 px-6 py-4 inset-x-0 w-[95%] bg-background/50 backdrop-blur-md border border-foreground/10 rounded-full z-50"
         initial={{ y: -100, opacity: 0 }}
         animate={isOpen ? { y: -100, opacity: 0 } : { y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <nav
           className="flex items-center justify-between gap-8"

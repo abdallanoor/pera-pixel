@@ -94,7 +94,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 0.3, delay: 1.2 }}
-          className="relative z-10 mt-20 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden"
+          className="relative z-10 mt-14 rounded-3xl border border-neutral-200 bg-neutral-100 p-2 md:p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden"
         >
           <div className="relative w-full overflow-hidden rounded-xl border border-gray-300 dark:border-neutral-800">
             <div className="absolute inset-x-0 bottom-0 h-40 w-full bg-gradient-to-b from-transparent via-white to-white dark:via-black/50 dark:to-black scale-[1.1] pointer-events-none z-10"></div>
