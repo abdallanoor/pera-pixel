@@ -3,20 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Menu, X } from "lucide-react";
-
-type NavItem = {
-  id: number;
-  title: string;
-  href: string;
-};
-
-const NAV_ITEMS: NavItem[] = [
-  { id: 1, title: "Home", href: "#hero" },
-  { id: 2, title: "About", href: "#about" },
-  { id: 3, title: "Portfolio", href: "#portfolio" },
-  { id: 4, title: "Services", href: "#services" },
-  { id: 5, title: "Contact", href: "#contact" },
-];
+import { DATA } from "@/data/content";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -150,7 +137,7 @@ export default function Navbar() {
             animate={isOpen ? "open" : "closed"}
             className="space-y-8"
           >
-            {NAV_ITEMS.map((item) => (
+            {DATA.navbar.map((item) => (
               <motion.div
                 key={item.id}
                 variants={itemVariants}
