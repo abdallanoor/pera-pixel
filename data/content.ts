@@ -20,58 +20,76 @@ export const DATA = {
   },
   testimonials: [
     {
-      text: "As a seasoned designer always on the lookout for innovative tools, Framer.com instantly grabbed my attention.",
-      imageSrc: "/avatar-1.png",
-      name: "Jamie Rivera",
-      job: "CEO at TechFlow Solutions",
+      id: "1",
+      name: "Manu Arora",
+      role: "Tech Innovator & Entrepreneur",
+      content:
+        "What a fantastic AI Every AI is, I just love it. It has completely transformed the way I approach problems and develop solutions.",
+      avatar: "/avatar-1.png",
     },
     {
-      text: "Our team's productivity has skyrocketed since we started using this tool. ",
-      imageSrc: "/avatar-2.png",
-      name: "Josh Smith",
-      job: "Product Manager at Innovatech",
+      id: "2",
+      name: "Tyler Durden",
+      role: "Creative Director & Business Owner",
+      content:
+        "I made a soap with the help of AI, it was so easy to use. I'm so glad this happened because it revolutionized my entire business model and production process.",
+      avatar: "/avatar-2.png",
     },
     {
-      text: "This app has completely transformed how I manage my projects and deadlines.",
-      imageSrc: "/avatar-3.png",
-      name: "Morgan Lee",
-      job: "Freelance Developer",
+      id: "3",
+      name: "Alice Johnson",
+      role: "Senior Software Engineer",
+      content:
+        "This AI has transformed the way I work! It's like having a brilliant assistant who knows exactly what I need before I even ask.",
+      avatar: "/avatar-3.png",
     },
     {
-      text: "I was amazed at how quickly we were able to integrate this app into our workflow.",
-      imageSrc: "/avatar-4.png",
-      name: "Casey Jordan",
-      job: "Marketing Director at Creative Minds",
+      id: "4",
+      name: "Bob Smith",
+      role: "Industry Analyst",
+      content:
+        "Absolutely revolutionary, a game-changer for our industry. It has streamlined our processes and enhanced our productivity dramatically.",
+      avatar: "/avatar-4.png",
     },
     {
-      text: "Planning and executing events has never been easier. This app helps me keep track of all the moving parts, ensuring nothing slips through the cracks.",
-      imageSrc: "/avatar-5.png",
-      name: "Taylor Kim",
-      job: "Event Coordinator at Event Horizon",
+      id: "5",
+      name: "Cathy Lee",
+      role: "Product Manager",
+      content:
+        "I can't imagine going back to how things were before this AI. It has not only improved my work efficiency but also my daily life.",
+      avatar: "/avatar-5.png",
     },
     {
-      text: "The customizability and integration capabilities of this app are top-notch.",
-      imageSrc: "/avatar-6.png",
-      name: "Riley Smith",
-      job: "Innovation Lead",
+      id: "6",
+      name: "David Wright",
+      role: "Research Scientist",
+      content:
+        "It's like having a superpower! This AI tool has given us the ability to do things we never thought were possible in our field.",
+      avatar: "/avatar-6.png",
     },
     {
-      text: "Adopting this app for our team has streamlined our project management and improved communication across the board.",
-      imageSrc: "/avatar-7.png",
-      name: "Jordan Patels",
-      job: "Project Manager at NextGen Tech",
+      id: "7",
+      name: "Eva Green",
+      role: "Operations Director",
+      content:
+        "The efficiency it brings is unmatched. It's a vital tool that has helped us cut costs and improve our end product significantly.",
+      avatar: "/avatar-7.png",
     },
     {
-      text: "With this app, we can easily assign tasks, track progress, and manage documents all in one place.",
-      imageSrc: "/avatar-8.png",
-      name: "Sam Dawson",
-      job: "UX Designer at Creative Solutions",
+      id: "8",
+      name: "Frank Moore",
+      role: "Project Manager",
+      content:
+        "A robust solution that fits perfectly into our workflow. It has enhanced our team's capabilities and allowed us to tackle more complex projects.",
+      avatar: "/avatar-8.png",
     },
     {
-      text: "Its user-friendly interface and robust features support our diverse needs.",
-      imageSrc: "/avatar-9.png",
-      name: "Casey Harper",
-      job: "Software Engineer at CodeCrafters",
+      id: "9",
+      name: "Grace Hall",
+      role: "Marketing Specialist",
+      content:
+        "It's incredibly intuitive and easy to use. Even those without technical expertise can leverage its power to improve their workflows.",
+      avatar: "/avatar-9.png",
     },
   ]
 }

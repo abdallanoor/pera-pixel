@@ -76,7 +76,7 @@ export default function Hero() {
             Real Estate
           </motion.span>
 
-          {" with Stunning Videos".split(" ").map((word, index) => (
+          {"with Stunning Videos".split(" ").map((word, index) => (
             <motion.span
               key={`after-${index}`}
               initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}

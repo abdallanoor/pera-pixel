@@ -1,96 +1,145 @@
 "use client";
+
+import { motion } from "framer-motion";
+import { memo } from "react";
+import Image from "next/image";
 import { SectionTag } from "@/components/SectionTag";
 import { DATA } from "@/data/content";
-import Image from "next/image";
-import { Fragment, useRef } from "react";
-import { motion, useInView } from "motion/react";
+
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  content: string;
+  avatar: string;
+}
+
+interface TestimonialCardProps {
+  testimonial: Testimonial;
+}
+
+const TestimonialCard = memo(({ testimonial }: TestimonialCardProps) => (
+  <motion.figure
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    className="rounded-3xl bg-neutral-900 p-8 shadow-lg"
+  >
+    <div className="flex flex-col items-start">
+      <div className="flex gap-3 items-center">
+        <div className="relative h-10 w-10 rounded-full overflow-hidden">
+          <Image
+            src={testimonial.avatar || "placeholder-img.png"}
+            alt={testimonial.name}
+            fill
+            className="object-cover"
+            sizes="40px"
+          />
+        </div>
+        <div>
+          <h3 className="text-sm font-medium text-neutral-300">
+            {testimonial.name}
+          </h3>
+          <p className="text-sm font-normal text-neutral-400">
+            {testimonial.role}
+          </p>
+        </div>
+      </div>
+      <p className="text-base text-neutral-300 mt-4 leading-relaxed">
+        {testimonial.content}
+      </p>
+    </div>
+  </motion.figure>
+));
+
+TestimonialCard.displayName = "TestimonialCard";
+
+interface MarqueeColumnProps {
+  testimonials: Testimonial[];
+  duration?: number;
+  className?: string;
+}
+
+const MarqueeColumn = memo(
+  ({ testimonials, duration = 60, className = "" }: MarqueeColumnProps) => {
+    const duplicatedTestimonials = [...testimonials, ...testimonials];
+
+    return (
+      <div className={`relative overflow-hidden ${className}`}>
+        <motion.div
+          animate={{ y: ["0%", "-50%"] }}
+          transition={{
+            duration,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="space-y-8 py-4"
+        >
+          {duplicatedTestimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={`${testimonial.id}-${index}`}
+              testimonial={testimonial}
+            />
+          ))}
+        </motion.div>
+      </div>
+    );
+  }
+);
+
+MarqueeColumn.displayName = "MarqueeColumn";
+
+const testimonials: Testimonial[] = DATA.testimonials;
 
 export default function Testimonials() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  const firstColumn = DATA.testimonials.slice(0, 3);
-  const secondColumn = DATA.testimonials.slice(3, 6);
-  const thirdColumn = DATA.testimonials.slice(6, 9);
-
-  const TestimonialsColumn = (props: {
-    testimonials: typeof DATA.testimonials;
-    duration?: number;
-  }) => (
-    <motion.div
-      animate={{
-        translateY: "-50%",
-      }}
-      transition={{
-        duration: props.duration || 10,
-        ease: "linear",
-        repeat: Infinity,
-        repeatType: "loop",
-      }}
-      className="flex flex-col gap-6 pb-6"
-    >
-      {[...new Array(2)].map((_, index) => (
-        <Fragment key={index}>
-          {props.testimonials.map((testimonial, index) => (
-            <div key={index} className="rounded-3xl p-8 dark:bg-neutral-900">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={testimonial.imageSrc}
-                    alt={testimonial.name}
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                    loading="lazy"
-                  />
-                  <div>
-                    <h3 className="font-medium tracking-tight leading-5">
-                      {testimonial.name}
-                    </h3>
-                    <p className="tracking-tight leading-5 text-sm">
-                      {testimonial.job}
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-4 text-neutral-700 dark:text-neutral-300">
-                  {testimonial.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </Fragment>
-      ))}
-    </motion.div>
-  );
+  const column1 = testimonials.slice(0, 3);
+  const column2 = testimonials.slice(3, 6);
+  const column3 = testimonials.slice(6, 9);
 
   return (
-    <section ref={ref} className="container mx-auto my-14 min-h-screen">
-      <motion.div
-        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="flex justify-center flex-col items-center gap-5"
-      >
-        <SectionTag
-          containerClassName="rounded-full"
-          as="button"
-          className="flex items-center space-x-2 text-sm"
+    <section className="relative my-14">
+      <div className="container mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="text-center flex flex-col gap-2 items-center justify-center"
         >
-          <span>Testimonials</span>
-        </SectionTag>
-        <h2 className="section-title">What our clients say</h2>
+          <SectionTag
+            containerClassName="rounded-full"
+            as="button"
+            className="section-teg"
+          >
+            <span>Testimonials</span>
+          </SectionTag>
+          <h2 className="section-title">What our clients say</h2>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 max-h-screen overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_75%,transparent)]"
+          className="relative mt-14 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden sm:mt-16 md:grid-cols-2 lg:grid-cols-3"
         >
-          <TestimonialsColumn testimonials={firstColumn} duration={15} />
-          <TestimonialsColumn testimonials={secondColumn} duration={19} />
-          <TestimonialsColumn testimonials={thirdColumn} duration={17} />
+          <MarqueeColumn testimonials={column1} duration={20} />
+          <MarqueeColumn
+            testimonials={column2}
+            duration={25}
+            className="hidden md:block"
+          />
+          <MarqueeColumn
+            testimonials={column3}
+            duration={20}
+            className="hidden lg:block"
+          />
+
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
