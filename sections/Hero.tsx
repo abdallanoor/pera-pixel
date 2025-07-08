@@ -24,7 +24,7 @@ export default function Hero() {
       id="hero"
       aria-label="Hero Section"
       ref={ref}
-      className="relative flex-col items-center justify-center min-h-screen pt-16 antialiased overflow-hidden"
+      className="relative flex-col items-center justify-center max-sm:h-screen pt-16 antialiased overflow-hidden"
     >
       <Spotlight />
       <div className="absolute inset-y-0 left-0 h-full w-px">
