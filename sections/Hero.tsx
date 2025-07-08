@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
+import { motion } from "motion/react";
 import { useRef } from "react";
-import { Spotlight } from "../components/ui/spotlight";
 import { ChevronRight } from "lucide-react";
 import Companies from "../components/Companies";
 import { DATA } from "@/data/content";
+import { Spotlight } from "@/components/Spotlight";
 
 export default function Hero() {
   const ref = useRef(null);
