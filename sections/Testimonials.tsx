@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { memo } from "react";
 import Image from "next/image";
-import { SectionTag } from "@/components/SectionTag";
 import { DATA } from "@/data/content";
+import SectionHeader from "@/components/SectionHeader";
 
 interface Testimonial {
   id: string;
@@ -100,22 +100,7 @@ export default function Testimonials() {
   return (
     <section className="relative my-14">
       <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="text-center flex flex-col gap-2 items-center justify-center"
-        >
-          <SectionTag
-            containerClassName="rounded-full"
-            as="button"
-            className="section-teg"
-          >
-            <span>Testimonials</span>
-          </SectionTag>
-          <h2 className="section-title">What our clients say</h2>
-        </motion.div>
+        <SectionHeader title="What our clients say" tag="Testimonials" />
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
