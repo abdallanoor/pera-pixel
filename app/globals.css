@@ -108,7 +108,7 @@ html {
 }
 @layer components {
   .section-teg {
-    @apply font-medium text-xs tracking-tight bg-background!;
+    @apply font-medium text-sm tracking-tight bg-background!;
   }
   .section-title {
     @apply text-center text-3xl md:text-5xl md:leading-14 font-bold tracking-tighter max-w-2xl;
