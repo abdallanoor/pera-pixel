@@ -1,11 +1,13 @@
 "use client";
+
+import { memo } from "react";
 import SectionHeader from "@/components/SectionHeader";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function Portfolio() {
-  const Info = ({
+const Info = memo(
+  ({
     title,
     description,
     className,
@@ -15,14 +17,14 @@ export default function Portfolio() {
     className?: string;
   }) => (
     <motion.div
-      className={`space-y-6 ${className}`}
+      className={`space-y-6 ${className} max-lg:text-center`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, delay: 0.1 }}
     >
       <h3 className="text-4xl lg:text-6xl tracking-tighter mb-4">{title}</h3>
-      <p className="text-muted-foreground text-lg mb-8 max-w-lg">
+      <p className="text-muted-foreground text-lg mb-8 max-lg:max-w-lg max-lg:mx-auto">
         {description}
       </p>
       <button
@@ -39,39 +41,107 @@ export default function Portfolio() {
         <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-blue-500/0 via-blue-500/90 to-blue-500/0 transition-opacity duration-500 group-hover:opacity-40"></span>
       </button>
     </motion.div>
+  )
+);
+
+Info.displayName = "Info";
+
+const PortfolioVideo = ({
+  src,
+  poster,
+  type,
+  isHorizontal = true,
+}: {
+  src: string;
+  poster: string;
+  type: string;
+  isHorizontal?: boolean;
+}) => {
+  return (
+    <div
+      className={`group flex-none snap-start ${
+        isHorizontal
+          ? "w-full mr-4 md:mr-0 md:w-full"
+          : "relative w-full aspect-[9/19] mx-auto mr-4 md:mr-0 md:w-auto"
+      }`}
+    >
+      {!isHorizontal && (
+        <div className="absolute inset-0 pointer-events-none z-20">
+          <Image
+            src="/Phonevertical.png"
+            alt="Phone Frame"
+            className="w-full h-full object-contain"
+            width={497}
+            height={1024}
+            priority={false}
+            quality={80}
+          />
+        </div>
+      )}
+      <div
+        className={`${
+          isHorizontal
+            ? "relative aspect-video rounded-lg"
+            : "relative w-[93%] h-[95%] top-[2.5%] left-[3.5%] rounded-[60px] lg:rounded-[35px]"
+        } z-10 overflow-hidden bg-black`}
+      >
+        <video
+          preload="metadata"
+          playsInline
+          loop
+          muted
+          autoPlay
+          controls={false}
+          poster={poster}
+          className="object-cover w-full h-full"
+        >
+          <source src={src} type={type} />
+          Your browser does not support the video tag.
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      </div>
+    </div>
   );
+};
+
+PortfolioVideo.displayName = "PortfolioVideo";
+
+export default function Portfolio() {
+  const commonMotionProps = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.8, delay: 0.1 },
+  };
+
+  const videos = [
+    { src: "/video.mp4" },
+    { src: "/video.mp4" },
+    { src: "/video.mp4" },
+    { src: "/video.mp4" },
+  ];
 
   return (
     <section id="portfolio" className="relative my-14 container">
       <SectionHeader tag="Portfolio" title="Cinematic Visual Experiences" />
+
       {/* Horizontal Videos Section */}
       <div className="grid lg:grid-cols-2 gap-10 items-start py-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="flex overflow-x-auto snap-x snap-mandatory pb-4 gap-10 no-scrollbar lg:grid lg:grid-cols-1 lg:gap-6 order-2 lg:order-1"
+          {...commonMotionProps}
+          className="flex overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar md:grid md:grid-cols-1 md:gap-6 order-2 lg:order-1"
         >
-          {[1, 2, 3, 4].map((video) => (
-            <div
-              key={video}
-              className="group flex-none w-11/12 sm:w-3/4 md:w-2/3 snap-center lg:w-full"
-            >
-              <div className="relative aspect-video rounded-lg overflow-hidden">
-                <video
-                  src="/video.mp4"
-                  className="object-cover w-full h-full"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster="/loading-video.gif"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-            </div>
+          <div className="flex-none pl-4 md:hidden"></div>
+          {videos.map((video, index) => (
+            <PortfolioVideo
+              key={`horizontal-video-${index}`}
+              src={video.src}
+              poster="/loading-video.gif"
+              type="video/mp4"
+              isHorizontal={true}
+            />
           ))}
+          <div className="flex-none pr-5 md:hidden"></div>
         </motion.div>
 
         <Info
@@ -88,43 +158,21 @@ export default function Portfolio() {
           title="Vertical reels"
           description="Elevate your brand with captivating short-form video content tailored for discerning clients, reflecting your distinctive personality and style."
         />
-
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="flex overflow-x-auto snap-x snap-mandatory pb-4 gap-10 no-scrollbar lg:grid lg:grid-cols-2 lg:gap-4"
+          {...commonMotionProps}
+          className="flex overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar md:grid md:grid-cols-2 md:gap-4"
         >
-          {[1, 2, 3, 4].map((video) => (
-            <div
-              key={video}
-              className="relative flex-none w-[45vw] sm:w-[30vw] md:w-[25vw] aspect-[9/19] mx-auto snap-start lg:w-auto"
-            >
-              <div className="absolute inset-0 pointer-events-none z-20">
-                <Image
-                  src="/Phonevertical.png"
-                  alt="Phone Frame"
-                  className="w-full h-full object-contain"
-                  width={497}
-                  height={1024}
-                />
-              </div>
-
-              <div className="relative w-[93%] h-[95%] top-[2%] left-[3.5%] z-10 rounded-[30px] md:rounded-[40px] overflow-hidden bg-black">
-                <video
-                  src="/video.mp4"
-                  className="object-cover w-full h-full"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster="/loading-video.gif"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-            </div>
+          <div className="flex-none pl-4 md:hidden"></div>
+          {videos.map((video, index) => (
+            <PortfolioVideo
+              key={`vertical-video-${index}`}
+              src={video.src}
+              poster="/loading-video.gif"
+              type="video/mp4"
+              isHorizontal={false}
+            />
           ))}
+          <div className="flex-none pr-5 md:hidden"></div>
         </motion.div>
       </div>
     </section>
