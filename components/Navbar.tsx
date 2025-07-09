@@ -7,6 +7,7 @@ import { DATA } from "@/data/content";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
@@ -14,6 +15,25 @@ export default function Navbar() {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const updateScrollDirection = () => {
+      const currentScrollY = window.scrollY;
+      const direction = currentScrollY > lastScrollY ? "down" : "up";
+      if (
+        direction !== scrollDirection &&
+        Math.abs(currentScrollY - lastScrollY) > 10
+      ) {
+        setScrollDirection(direction);
+      }
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", updateScrollDirection);
+    return () => window.removeEventListener("scroll", updateScrollDirection);
+  }, [scrollDirection]);
 
   const menuVariants: Variants = {
     closed: {
@@ -71,9 +91,15 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="container fixed top-4 px-6 py-4 inset-x-0 w-[95%] bg-background/50 backdrop-blur-md border border-foreground/10 rounded-full z-50"
+        className="container fixed top-4 px-6 py-4 inset-x-0 w-[95%] bg-background/70 backdrop-blur-md border border-foreground/10 rounded-full z-50"
         initial={{ y: -100, opacity: 0 }}
-        animate={isOpen ? { y: -100, opacity: 0 } : { y: 0, opacity: 1 }}
+        animate={
+          isOpen
+            ? { y: -100, opacity: 0 }
+            : scrollDirection === "down"
+            ? { y: -100, opacity: 0 }
+            : { y: 0, opacity: 1 }
+        }
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <nav
