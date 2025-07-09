@@ -26,7 +26,6 @@ export default function Hero() {
       ref={ref}
       className="relative flex-col items-center justify-center max-sm:h-screen pt-16 antialiased overflow-hidden"
     >
-      <Spotlight />
       <div className="absolute inset-y-0 left-0 h-full w-px">
         <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
       </div>
@@ -37,7 +36,8 @@ export default function Hero() {
         <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
       </div>
 
-      <div className="px-4 py-10 md:py-16 container">
+      <div className="relative px-4 py-10 md:py-16 container">
+        <Spotlight />
         <h1 className="mx-auto max-w-4xl text-center text-2xl font-bold md:text-4xl lg:text-7xl">
           {"Elevate Your".split(" ").map((word, index) => (
             <motion.span
