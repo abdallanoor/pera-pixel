@@ -98,7 +98,7 @@ export default function Testimonials() {
   const column3 = testimonials.slice(6, 9);
 
   return (
-    <section className="relative my-14">
+    <section className="relative py-14">
       <div className="container mx-auto">
         <SectionHeader title="What our clients say" tag="Testimonials" />
 

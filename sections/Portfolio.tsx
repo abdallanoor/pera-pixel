@@ -122,7 +122,7 @@ export default function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="relative my-14 container">
+    <section id="portfolio" className="relative py-14 container">
       <SectionHeader tag="Portfolio" title="Cinematic Visual Experiences" />
 
       {/* Horizontal Videos Section */}
