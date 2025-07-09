@@ -45,16 +45,18 @@ export default function Portfolio() {
     <section id="portfolio" className="relative my-14 container">
       <SectionHeader tag="Portfolio" title="Cinematic Visual Experiences" />
       {/* Horizontal Videos Section */}
-      <div className="grid lg:grid-cols-2 gap-14 items-start py-14">
-        <div className="space-y-6 order-2 lg:order-1">
-          {[1, 2, 3, 4].map((video, index) => (
-            <motion.div
+      <div className="grid lg:grid-cols-2 gap-10 items-start py-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="flex overflow-x-auto snap-x snap-mandatory pb-4 gap-10 no-scrollbar lg:grid lg:grid-cols-1 lg:gap-6 order-2 lg:order-1"
+        >
+          {[1, 2, 3, 4].map((video) => (
+            <div
               key={video}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.15 }}
-              className="group"
+              className="group flex-none w-11/12 sm:w-3/4 md:w-2/3 snap-center lg:w-full"
             >
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <video
@@ -64,12 +66,13 @@ export default function Portfolio() {
                   loop
                   muted
                   playsInline
+                  poster="/loading-video.gif"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
 
         <Info
           className="lg:sticky lg:top-24 order-1 lg:order-2"
@@ -79,29 +82,30 @@ export default function Portfolio() {
       </div>
 
       {/* Vertical Reels Section */}
-
-      <div className="grid lg:grid-cols-2 gap-14 items-start py-14">
+      <div className="grid lg:grid-cols-2 gap-10 items-start">
         <Info
           className="lg:sticky lg:top-24"
           title="Vertical reels"
           description="Elevate your brand with captivating short-form video content tailored for discerning clients, reflecting your distinctive personality and style."
         />
 
-        <div className="grid grid-cols-2 gap-4">
-          {[1, 2, 3, 4].map((video, index) => (
-            <motion.div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="flex overflow-x-auto snap-x snap-mandatory pb-4 gap-10 no-scrollbar lg:grid lg:grid-cols-2 lg:gap-4"
+        >
+          {[1, 2, 3, 4].map((video) => (
+            <div
               key={video}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.15 }}
-              className="relative w-full max-w-sm aspect-[9/19] mx-auto"
+              className="relative flex-none w-[45vw] sm:w-[30vw] md:w-[25vw] aspect-[9/19] mx-auto snap-start lg:w-auto"
             >
               <div className="absolute inset-0 pointer-events-none z-20">
                 <Image
                   src="/Phonevertical.png"
                   alt="Phone Frame"
-                  className="w-full h-full object-contain "
+                  className="w-full h-full object-contain"
                   width={497}
                   height={1024}
                 />
@@ -115,12 +119,13 @@ export default function Portfolio() {
                   loop
                   muted
                   playsInline
+                  poster="/loading-video.gif"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
