@@ -129,7 +129,7 @@ export default function Portfolio() {
       <div className="grid lg:grid-cols-2 gap-10 items-start py-10">
         <motion.div
           {...commonMotionProps}
-          className="flex overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar md:grid md:grid-cols-1 md:gap-6 order-2 lg:order-1"
+          className="flex overflow-x-auto snap-x snap-mandatory max-sm:pb-4 no-scrollbar md:grid md:grid-cols-1 md:gap-6 order-2 lg:order-1"
         >
           <div className="flex-none pl-4 md:hidden"></div>
           {videos.map((video, index) => (
@@ -160,7 +160,7 @@ export default function Portfolio() {
         />
         <motion.div
           {...commonMotionProps}
-          className="flex overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar md:grid md:grid-cols-2 md:gap-4"
+          className="flex overflow-x-auto snap-x snap-mandatory max-sm:pb-4 no-scrollbar md:grid md:grid-cols-2 md:gap-4"
         >
           <div className="flex-none pl-4 md:hidden"></div>
           {videos.map((video, index) => (
