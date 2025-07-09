@@ -15,7 +15,7 @@ export default function SectionHeader({
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: 0.2 }}
-      className="text-center flex flex-col gap-2 items-center justify-center"
+      className="text-center flex flex-col gap-4 items-center justify-center"
     >
       <SectionTag
         containerClassName="rounded-full"
