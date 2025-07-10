@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import Companies from "../components/Companies";
 import { DATA } from "@/data/content";
-import { Spotlight } from "@/components/Spotlight";
+// import { Spotlight } from "@/components/Spotlight";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -37,7 +37,7 @@ export default function Hero() {
       </div>
 
       <div className="relative px-4 py-10 md:py-16 container">
-        <Spotlight />
+        {/* <Spotlight /> */}
         <h1 className="mx-auto max-w-4xl text-center text-2xl font-bold md:text-4xl lg:text-7xl">
           {"Elevate Your".split(" ").map((word, index) => (
             <motion.span
