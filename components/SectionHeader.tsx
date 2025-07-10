@@ -5,9 +5,11 @@ import { SectionTag } from "./SectionTag";
 export default function SectionHeader({
   title,
   tag,
+  discription,
 }: {
   title: string;
   tag: string;
+  discription?: string;
 }) {
   return (
     <motion.div
@@ -59,6 +61,19 @@ export default function SectionHeader({
       >
         {title}
       </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.6,
+          duration: 0.6,
+          ease: "easeOut",
+        }}
+        className="text-muted-foreground text-lg leading-relaxed max-w-2xl"
+      >
+        {discription}
+      </motion.p>
     </motion.div>
   );
 }
