@@ -16,15 +16,11 @@ const Info = memo(
     description: string;
     className?: string;
   }) => (
-    <motion.div
-      className={`space-y-6 ${className} max-lg:text-center`}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, delay: 0.1 }}
-    >
-      <h3 className="text-4xl lg:text-6xl tracking-tighter mb-4">{title}</h3>
-      <p className="text-muted-foreground text-lg mb-8 max-lg:max-w-lg max-lg:mx-auto">
+    <div className={`space-y-6 ${className} max-lg:text-center`}>
+      <h3 className="text-2xl lg:text-4xl tracking-tighter font-medium mb-4">
+        {title}
+      </h3>
+      <p className="text-muted-foreground md:text-lg mb-8 max-lg:max-w-lg max-lg:mx-auto">
         {description}
       </p>
       <button
@@ -40,7 +36,7 @@ const Info = memo(
         </div>
         <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-blue-500/0 via-blue-500/90 to-blue-500/0 transition-opacity duration-500 group-hover:opacity-40"></span>
       </button>
-    </motion.div>
+    </div>
   )
 );
 
@@ -137,11 +133,7 @@ const ScrollableVideoSection = ({
   }, [onScroll]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, delay: 0.1 }}
+    <div
       ref={scrollRef}
       className={`flex overflow-x-auto snap-x snap-mandatory max-sm:pb-4 no-scrollbar md:grid md:gap-4 ${
         isHorizontal ? "" : "max-md:mx-8 md:grid-cols-2"
@@ -158,8 +150,15 @@ const ScrollableVideoSection = ({
         />
       ))}
       <div className="flex-none pr-5 md:hidden"></div>
-    </motion.div>
+    </div>
   );
+};
+
+const commonMotionProps = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true },
+  transition: { duration: 0.3, delay: 0.4 },
 };
 
 export default function Portfolio() {
@@ -200,7 +199,10 @@ export default function Portfolio() {
       <SectionHeader tag="Portfolio" title="Cinematic Visual Experiences" />
 
       {/* Horizontal Videos Section */}
-      <div className="grid lg:grid-cols-2 gap-10 items-start py-10">
+      <motion.div
+        {...commonMotionProps}
+        className="grid lg:grid-cols-2 gap-10 items-start py-6 md:py-10"
+      >
         <div className="order-2 lg:order-1">
           <ScrollableVideoSection
             videos={videos}
@@ -227,10 +229,13 @@ export default function Portfolio() {
           title="Horizontal Videos"
           description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
         />
-      </div>
+      </motion.div>
 
       {/* Vertical Reels Section */}
-      <div className="grid lg:grid-cols-2 gap-10 items-start">
+      <motion.div
+        {...commonMotionProps}
+        className="grid lg:grid-cols-2 gap-10 items-start"
+      >
         <Info
           className="lg:sticky lg:top-24"
           title="Vertical reels"
@@ -256,7 +261,7 @@ export default function Portfolio() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
