@@ -98,33 +98,31 @@ export default function Testimonials() {
   const column3 = testimonials.slice(6, 9);
 
   return (
-    <section className="relative py-14">
-      <div className="container mx-auto">
-        <SectionHeader title="What our clients say" tag="Testimonials" />
+    <section className="container relative py-14">
+      <SectionHeader title="What our clients say" tag="Testimonials" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative mt-14 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden sm:mt-16 md:grid-cols-2 lg:grid-cols-3"
-        >
-          <MarqueeColumn testimonials={column1} duration={20} />
-          <MarqueeColumn
-            testimonials={column2}
-            duration={25}
-            className="hidden md:block"
-          />
-          <MarqueeColumn
-            testimonials={column3}
-            duration={20}
-            className="hidden lg:block"
-          />
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="relative mt-14 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden sm:mt-16 md:grid-cols-2 lg:grid-cols-3"
+      >
+        <MarqueeColumn testimonials={column1} duration={20} />
+        <MarqueeColumn
+          testimonials={column2}
+          duration={25}
+          className="hidden md:block"
+        />
+        <MarqueeColumn
+          testimonials={column3}
+          duration={20}
+          className="hidden lg:block"
+        />
 
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
-        </motion.div>
-      </div>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
+      </motion.div>
     </section>
   );
 }
