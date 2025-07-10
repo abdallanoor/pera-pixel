@@ -201,7 +201,7 @@ export default function Portfolio() {
       {/* Horizontal Videos Section */}
       <motion.div
         {...commonMotionProps}
-        className="grid lg:grid-cols-2 gap-10 items-start py-6 md:py-10"
+        className="grid lg:grid-cols-2 gap-10 items-start py-12 lg:py-10"
       >
         <div className="order-2 lg:order-1">
           <ScrollableVideoSection
