@@ -40,7 +40,7 @@ export default function SectionHeader({
       >
         <SectionTag
           containerClassName="rounded-full"
-          as="button"
+          as="div"
           className="section-teg"
         >
           <span>{tag}</span>
