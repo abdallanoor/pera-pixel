@@ -208,7 +208,7 @@ export default function Portfolio() {
             onScroll={handleHorizontalScroll}
           />
           {/* Mobile scroll indicators */}
-          <div className="flex justify-center mt-4 space-x-2 md:hidden">
+          <div className="flex justify-center mt-2 space-x-2 md:hidden">
             {videos.map((_, index) => (
               <div
                 key={index}
@@ -243,7 +243,7 @@ export default function Portfolio() {
             onScroll={handleVerticalScroll}
           />
           {/* Mobile scroll indicators */}
-          <div className="flex justify-center mt-4 space-x-2 md:hidden">
+          <div className="flex justify-center mt-2 space-x-2 md:hidden">
             {videos.map((_, index) => (
               <div
                 key={index}
