@@ -73,14 +73,16 @@ export default function Contact() {
           </button>
           {state && (
             <div
-              className={`mt-4 flex gap-2 items-center animate-fade-in ${state.success ? "text-green-400" : "text-destructive"}`}
+              className={`mt-4 flex gap-2 items-center ${state.success ? "text-green-400" : "text-destructive"}`}
             >
-              {state.success ? (
-                <CheckCircle2 className="w-5 h-5" />
-              ) : (
-                <CircleX className="w-5 h-5" />
-              )}
-              <span>{state.message}</span>
+              <div>
+                {state.success ? (
+                  <CheckCircle2 size={20} />
+                ) : (
+                  <CircleX size={20} />
+                )}
+              </div>
+              <p>{state.message}</p>
             </div>
           )}
 
