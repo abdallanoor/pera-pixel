@@ -96,7 +96,7 @@ export default function Contact() {
             target="_blank"
           >
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-neutral-800 rounded-md flex items-center justify-center">
                 <Instagram className="w-6 h-6 text-foreground" />
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function Contact() {
             target="_blank"
           >
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-neutral-800 rounded-md flex items-center justify-center">
                 <Mail className="w-6 h-6 text-foreground" />
               </div>
             </div>
