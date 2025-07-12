@@ -11,7 +11,7 @@ export default function Footer() {
     }, 300);
   };
   return (
-    <footer className="container">
+    <footer className="container py-10">
       <div className="flex items-center justify-between gap-4 flex-col lg:flex-row py-10">
         <div className="flex-1">
           <p className="font-medium">LOGO</p>
