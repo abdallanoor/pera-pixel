@@ -3,6 +3,7 @@ import MobileNav from "@/components/Navbar";
 import Testimonials from "@/sections/Testimonials";
 import Portfolio from "@/sections/Portfolio";
 import Contact from "@/sections/Contact";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Portfolio />
       <Testimonials />
       <Contact />
+      <Footer />
     </main>
   );
 }
