@@ -1,14 +1,17 @@
+"use client";
+
 import { DATA } from "@/data/content";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function Companies({ isInView }: { isInView?: boolean }) {
+export default function Companies() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.3, delay: 1.4 }}
-      className="container mb-16"
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.3, delay: 0.3 }}
+      className="container my-10"
     >
       <div className="flex overflow-hidden w-4/5 mx-auto [mask-image:linear-gradient(to_right,transparent,black,transparent)]">
         <motion.div
