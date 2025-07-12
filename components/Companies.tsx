@@ -30,7 +30,7 @@ export default function Companies({ isInView }: { isInView?: boolean }) {
               width={100}
               height={38}
               alt={logo.title}
-              className="w-auto h-8 invert"
+              className="w-auto h-8 dark:invert"
             />
           ))}
 

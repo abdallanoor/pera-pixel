@@ -24,7 +24,7 @@ const TestimonialCard = memo(({ testimonial }: TestimonialCardProps) => (
     animate={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5 }}
-    className="rounded-3xl bg-neutral-900 p-8 shadow-lg"
+    className="rounded-3xl bg-neutral-100 dark:bg-neutral-900 p-8"
   >
     <div className="flex flex-col items-start">
       <div className="flex gap-3 items-center">
@@ -38,17 +38,13 @@ const TestimonialCard = memo(({ testimonial }: TestimonialCardProps) => (
           />
         </div>
         <div>
-          <h3 className="text-sm font-medium text-neutral-300">
-            {testimonial.name}
-          </h3>
-          <p className="text-sm font-normal text-neutral-400">
+          <h3 className="text-sm font-medium">{testimonial.name}</h3>
+          <p className="text-sm font-normal text-muted-foreground">
             {testimonial.role}
           </p>
         </div>
       </div>
-      <p className="text-base text-neutral-300 mt-4 leading-relaxed">
-        {testimonial.content}
-      </p>
+      <p className="text-base mt-4 leading-relaxed">{testimonial.content}</p>
     </div>
   </motion.figure>
 ));

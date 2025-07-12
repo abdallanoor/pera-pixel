@@ -1,10 +1,10 @@
 export const DATA = {
   navbar: [
-    { id: 1, title: "Home", href: "#hero" },
-    { id: 2, title: "About", href: "#about" },
-    { id: 3, title: "Portfolio", href: "#portfolio" },
-    { id: 4, title: "Services", href: "#services" },
-    { id: 5, title: "Contact", href: "#contact" },
+    { title: "Home", href: "#hero" },
+    // { title: "About", href: "#about" },
+    { title: "Portfolio", href: "#portfolio" },
+    { title: "Services", href: "#services" },
+    // { title: "Contact", href: "#contact" },
   ],
   hero: {
     subtitle: "Professional video editing services that transform your property listings into captivating visual experiences that sell.",

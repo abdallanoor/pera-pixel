@@ -5,10 +5,10 @@ import { DATA } from "@/data/content";
 
 export default function Footer() {
   const handleNavClick = (href: string) => {
-    setTimeout(() => {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: "smooth" });
-    }, 300);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
   return (
     <footer className="container py-10">

@@ -25,7 +25,7 @@ const Info = memo(
       </p>
       <button
         aria-label="Get in Touch"
-        className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-1 text-sm font-semibold leading-6 text-white inline-block"
+        className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl rounded-full p-1 text-sm font-semibold leading-6 text-white inline-block"
       >
         <span className="absolute inset-0 overflow-hidden rounded-full">
           <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
@@ -79,7 +79,7 @@ const PortfolioVideo = ({
           isHorizontal
             ? "relative aspect-video rounded-lg"
             : "relative w-[93%] h-[95%] top-[2.5%] left-[3.5%] rounded-[50px] lg:rounded-[35px]"
-        } z-10 overflow-hidden bg-black`}
+        } z-10 overflow-hidden bg-background`}
       >
         <video
           preload="metadata"
@@ -94,7 +94,6 @@ const PortfolioVideo = ({
           <source src={src} type={type} />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export default function Hero() {
       id="hero"
       aria-label="Hero Section"
       ref={ref}
-      className="relative flex-col items-center justify-center max-sm:h-screen pt-16 antialiased overflow-hidden"
+      className="relative flex-col items-center justify-center max-sm:h-screen pt-20 antialiased overflow-hidden"
     >
       <div className="absolute inset-y-0 left-0 h-full w-px">
         <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
@@ -36,9 +36,9 @@ export default function Hero() {
         <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
       </div>
 
-      <div className="relative px-4 py-10 md:py-16 container">
+      <div className="relative px-4 py-10 md:py-10 container">
         {/* <Spotlight /> */}
-        <h1 className="mx-auto max-w-4xl text-center text-2xl font-bold md:text-4xl lg:text-7xl">
+        <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold md:text-4xl lg:text-7xl">
           {"Elevate Your".split(" ").map((word, index) => (
             <motion.span
               key={index}
@@ -110,11 +110,11 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: 1 }}
-          className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
+          className="relative z-10 mt-4 flex flex-wrap items-center justify-center gap-4"
         >
           <button
             aria-label="Explore Our Projects"
-            className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-1 text-sm font-semibold leading-6 text-white inline-block"
+            className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl rounded-full p-1 text-sm font-semibold leading-6 text-white inline-block"
             onClick={() => handleNavClick("#portfolio")}
           >
             <span className="absolute inset-0 overflow-hidden rounded-full">
@@ -132,10 +132,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 0.3, delay: 1.2 }}
-          className="relative z-10 mt-14 rounded-3xl border border-neutral-200 bg-neutral-100 p-2 md:p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden"
+          className="relative z-10 mt-10 rounded-3xl border border-neutral-200 bg-neutral-100 p-2 md:p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden"
         >
           <div className="relative w-full overflow-hidden rounded-xl border border-gray-300 dark:border-neutral-800">
-            <div className="absolute inset-x-0 bottom-0 h-40 w-full bg-gradient-to-b from-transparent via-white to-white dark:via-black/50 dark:to-black scale-[1.1] pointer-events-none z-10"></div>
+            {/* <div className="absolute inset-x-0 bottom-0 h-40 w-full bg-gradient-to-b from-transparent via-black/50 to-black scale-[1.1] pointer-events-none z-10"></div> */}
             <div className="aspect-[16/9] h-auto w-full overflow-hidden rounded-xl">
               <video
                 src={DATA.hero.video}

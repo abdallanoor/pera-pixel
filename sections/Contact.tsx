@@ -92,32 +92,32 @@ export default function Contact() {
         <div className="flex gap-4 flex-col md:flex-row">
           <a
             href="https://www.instagram.com/perapixel"
-            className="group/btn shadow-input relative flex w-full items-center gap-2 rounded-md p-2 font-medium dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            className="group/btn shadow-input relative flex w-full items-center gap-2 rounded-md p-2 font-medium bg-muted dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
             target="_blank"
           >
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-neutral-800 rounded-md flex items-center justify-center">
+              <div className="w-12 h-12 bg-neutral-200 dark:bg-neutral-800 rounded-md flex items-center justify-center">
                 <Instagram className="w-6 h-6 text-foreground" />
               </div>
             </div>
             <div className="text-sm">
-              <h4 className="text-white font-medium">Instagram</h4>
+              <h4 className="text-foreground font-medium">Instagram</h4>
               <p className="text-muted-foreground">@perapixel</p>
             </div>
             <BottomGradient />
           </a>
           <a
             href="mailto:perapixel@gmail.com"
-            className="group/btn shadow-input relative flex w-full items-center gap-2 rounded-md p-2 font-medium dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            className="group/btn shadow-input relative flex w-full items-center gap-2 rounded-md p-2 font-medium bg-muted dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
             target="_blank"
           >
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-neutral-800 rounded-md flex items-center justify-center">
+              <div className="w-12 h-12 bg-neutral-200 dark:bg-neutral-800 rounded-md flex items-center justify-center">
                 <Mail className="w-6 h-6 text-foreground" />
               </div>
             </div>
             <div className="text-sm">
-              <h4 className="text-white font-medium">Email</h4>
+              <h4 className="text-foreground font-medium">Email</h4>
               <p className="text-muted-foreground">perapixel@gmail.com</p>
             </div>
             <BottomGradient />
