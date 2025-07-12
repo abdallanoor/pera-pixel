@@ -4,7 +4,7 @@ import { useInView } from "framer-motion";
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
-import Companies from "../components/Companies";
+// import Companies from "../components/Companies";
 import { DATA } from "@/data/content";
 // import { Spotlight } from "@/components/Spotlight";
 
@@ -149,7 +149,7 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
-      <Companies isInView={isInView} />
+      {/* <Companies isInView={isInView} /> */}
     </section>
   );
 }
