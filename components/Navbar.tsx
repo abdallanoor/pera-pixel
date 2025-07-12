@@ -49,13 +49,13 @@ export default function Navbar() {
     <>
       <motion.header
         className="container fixed top-4 px-5 py-3 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10  rounded-full z-50"
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -100 }}
         animate={
           isOpen
-            ? { y: -100, opacity: 0 }
+            ? { y: -100 }
             : scrollDirection === "down"
-              ? { y: -100, opacity: 0 }
-              : { y: 0, opacity: 1 }
+              ? { y: -100 }
+              : { y: 0 }
         }
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
