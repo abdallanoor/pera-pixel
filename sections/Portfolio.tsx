@@ -195,7 +195,6 @@ const ScrollableVideoSection = memo(
 
 ScrollableVideoSection.displayName = "ScrollableVideoSection";
 
-// Optimized parallax component
 const ParallaxHorizontalVideos = memo(
   ({
     videos,
@@ -212,11 +211,10 @@ const ParallaxHorizontalVideos = memo(
       offset: ["start start", "end end"],
     });
 
-    // Create smooth scroll-based video transitions
     const videoIndex = useTransform(
       scrollYProgress,
-      videos.map((_, i) => i / (videos.length - 1)), // [0, 0.33, 0.66, 1] for 4 videos
-      videos.map((_, i) => i) // [0, 1, 2, 3]
+      videos.map((_, i) => i / (videos.length - 1)),
+      videos.map((_, i) => i)
     );
 
     useEffect(() => {
@@ -234,21 +232,6 @@ const ParallaxHorizontalVideos = memo(
       return unsubscribe;
     }, [videoIndex, currentVideoIndex, onVideoChange, videos.length]);
 
-    // Add wheel event for more responsive scrolling
-    useEffect(() => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const handleWheel = (e: WheelEvent) => {
-        e.preventDefault();
-        const scrollAmount = e.deltaY > 0 ? 100 : -100;
-        window.scrollBy({ top: scrollAmount, behavior: "smooth" });
-      };
-
-      container.addEventListener("wheel", handleWheel, { passive: false });
-      return () => container.removeEventListener("wheel", handleWheel);
-    }, []);
-
     return (
       <div
         ref={containerRef}
@@ -265,7 +248,6 @@ const ParallaxHorizontalVideos = memo(
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 style={{
-                  pointerEvents: "none",
                   willChange: "opacity, transform",
                 }}
               >
@@ -273,7 +255,7 @@ const ParallaxHorizontalVideos = memo(
               </motion.div>
             </AnimatePresence>
             {/* Progress indicator */}
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
+            {/* <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
               {videos.map((_, i) => (
                 <div
                   key={i}
@@ -282,7 +264,7 @@ const ParallaxHorizontalVideos = memo(
                   }`}
                 />
               ))}
-            </div>
+            </div> */}
             {/* Scroll progress bar */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full overflow-hidden">
               <motion.div
