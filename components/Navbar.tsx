@@ -49,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="container fixed top-4 px-5 py-3 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10  rounded-full z-50"
+        className="container fixed top-4 px-5 py-3 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10 rounded-full z-40"
         initial={{ y: -100 }}
         animate={
           isOpen
@@ -77,7 +77,7 @@ export default function Navbar() {
             Perapixel
           </a>
 
-          <ul className="flex items-center gap-2 max-sm:hidden">
+          <ul className="flex items-center gap-2 max-md:hidden">
             {DATA.navbar.map((link, index) => (
               <li key={index}>
                 <a
@@ -96,12 +96,12 @@ export default function Navbar() {
 
           <div className="flex gap-2 items-center flex-1 justify-end">
             <ThemeToggle />
-            <div className="max-sm:hidden">
+            <div className="max-md:hidden">
               <ShareButton label="Contact" link="contact" />
             </div>
             <motion.button
               onClick={() => setIsOpen(true)}
-              className="flex items-center gap-2 text-foreground transition-colors sm:hidden"
+              className="flex items-center gap-2 text-foreground transition-colors md:hidden"
               aria-label="Open Menu"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
