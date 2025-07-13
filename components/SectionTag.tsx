@@ -66,7 +66,7 @@ export function SectionTag({
     >
       <div
         className={cn(
-          "w-auto text-white z-10 bg-black px-4 py-2 rounded-[inherit]",
+          "w-auto text-foreground z-10 bg-black px-4 py-2 rounded-[inherit]",
           className
         )}
       >

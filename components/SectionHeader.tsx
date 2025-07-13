@@ -43,7 +43,7 @@ export default function SectionHeader({
         <SectionTag
           containerClassName="rounded-full"
           as="div"
-          className="section-teg text-foreground!"
+          className="section-teg"
         >
           <span>{tag}</span>
         </SectionTag>
