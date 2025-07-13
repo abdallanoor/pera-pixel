@@ -1,157 +1,190 @@
 "use client";
 
-import { memo, useEffect, useRef, useState, useCallback } from "react";
-import SectionHeader from "@/components/SectionHeader";
+import { memo, useRef, useState, useCallback, useMemo, useEffect } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   AnimatePresence,
 } from "framer-motion";
-import Image from "next/image";
+import SectionHeader from "@/components/SectionHeader";
 import ShareButton from "@/components/ShareButton";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useFullscreen } from "@/hooks/useFullscreen";
+import { DATA } from "@/data/content";
 
-// Optimized Info component
-const Info = memo(
-  ({
-    title,
-    description,
-    className,
-  }: {
-    title: string;
-    description: string;
-    className?: string;
-  }) => (
-    <div className={`space-y-6 ${className} max-lg:text-center`}>
-      <h3 className="text-2xl lg:text-4xl tracking-tighter font-medium mb-4">
-        {title}
-      </h3>
-      <p className="text-muted-foreground md:text-lg mb-8 max-lg:max-w-lg max-lg:mx-auto">
-        {description}
-      </p>
-      <ShareButton icon={true} label="Get in Touch" link="contact" />
+// Types
+interface VimeoVideo {
+  src: string;
+  id: string;
+}
+
+interface VideoSectionProps {
+  videos: VimeoVideo[];
+  isHorizontal: boolean;
+  onActiveChange: (index: number) => void;
+}
+
+// Constants
+const VIMEO_PARAMS = {
+  autoplay: "0",
+  loop: "0",
+  muted: "0",
+  controls: "1",
+  portrait: "0",
+  title: "0",
+  byline: "0",
+  background: "0",
+  responsive: "1",
+  quality: "360p",
+  playsinline: "1",
+  fullscreen: "1",
+} as const;
+
+const MOTION_CONFIG = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true },
+  transition: { duration: 0.3, delay: 0.4 },
+} as const;
+
+// Utilities
+const buildVimeoUrl = (src: string): string => {
+  const url = new URL(src);
+  const params = new URLSearchParams(VIMEO_PARAMS);
+  return `${url.origin}${url.pathname}?${params}`;
+};
+
+const calculateActiveIndex = (
+  scrollLeft: number,
+  scrollWidth: number,
+  clientWidth: number,
+  totalItems: number
+): number => {
+  const itemWidth = (scrollWidth - clientWidth) / (totalItems - 1);
+  return Math.max(
+    0,
+    Math.min(Math.round(scrollLeft / itemWidth), totalItems - 1)
+  );
+};
+
+// Loading Spinner Component
+const LoadingSpinner = memo(() => (
+  <div className="absolute inset-0 flex items-center justify-center bg-muted/50 backdrop-blur-sm">
+    <div className="relative">
+      <div className="w-8 h-8 border-2 border-muted-foreground/20 rounded-full animate-spin border-t-foreground"></div>
     </div>
-  )
-);
+  </div>
+));
+
+LoadingSpinner.displayName = "LoadingSpinner";
+
+// Components
+const Info = memo<{
+  title: string;
+  description: string;
+  className?: string;
+}>(({ title, description, className = "" }) => (
+  <div className={`space-y-6 ${className} max-lg:text-center`}>
+    <h3 className="text-2xl lg:text-4xl tracking-tighter font-medium mb-4">
+      {title}
+    </h3>
+    <p className="text-muted-foreground md:text-lg mb-8 max-lg:max-w-lg max-lg:mx-auto lg:max-w-2xl mx-auto">
+      {description}
+    </p>
+    <ShareButton icon label="Get in Touch" link="contact" />
+  </div>
+));
 
 Info.displayName = "Info";
 
-// Optimized video component with lazy loading
-const PortfolioVideo = memo(
-  ({ src, isHorizontal = true }: { src: string; isHorizontal?: boolean }) => {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [isIntersecting, setIsIntersecting] = useState(false);
+const VimeoPlayer = memo<{
+  video: VimeoVideo;
+  isHorizontal: boolean;
+}>(({ video, isHorizontal }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const isIntersecting = useIntersectionObserver(containerRef, {
+    threshold: 0.1,
+    rootMargin: "50px",
+  });
+  const isFullscreen = useFullscreen();
 
-    const handleLoadedData = useCallback(() => {
-      if (videoRef.current && isIntersecting) {
-        videoRef.current.play().catch(() => {
-          // Autoplay failed, which is expected in some browsers
-        });
-      }
-    }, [isIntersecting]);
+  const embedUrl = useMemo(() => buildVimeoUrl(video.src), [video.src]);
 
-    useEffect(() => {
-      const video = videoRef.current;
-      if (!video) return;
+  const containerClass = useMemo(
+    () =>
+      isHorizontal
+        ? "w-full mr-4 md:mr-0 md:w-full md:snap-start"
+        : "relative w-full aspect-[9/16] mx-auto mr-4 md:mr-0 md:w-auto",
+    [isHorizontal]
+  );
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsIntersecting(true);
-              video.play().catch(() => {
-                // Autoplay failed, which is expected in some browsers
-              });
-            } else {
-              setIsIntersecting(false);
-              video.pause();
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
+  const videoClass = useMemo(
+    () =>
+      isHorizontal
+        ? "relative aspect-video rounded-lg"
+        : "relative w-full h-full rounded-lg",
+    [isHorizontal]
+  );
 
-      observer.observe(video);
-      return () => observer.disconnect();
-    }, []);
+  const handleLoad = useCallback(() => {
+    setIsLoading(false);
+  }, []);
 
-    const containerClass = isHorizontal
-      ? "w-full mr-4 md:mr-0 md:w-full md:snap-start"
-      : "relative w-full aspect-[9/19] mx-auto mr-4 md:mr-0 md:w-auto";
+  // Reset loading state when video changes
+  useEffect(() => {
+    if (isIntersecting) {
+      setIsLoading(true);
+    }
+  }, [video.id, isIntersecting]);
 
-    const videoClass = isHorizontal
-      ? "relative aspect-video rounded-lg shadow-2xl"
-      : "relative w-[93%] h-[95%] top-[2.5%] left-[3.5%] rounded-[50px] lg:rounded-[35px]";
-
-    return (
-      <div className={`group flex-none snap-start ${containerClass}`}>
-        {!isHorizontal && (
-          <div className="absolute inset-0 pointer-events-none z-20">
-            <Image
-              src="/Phonevertical.png"
-              alt="Phone Frame"
-              className="w-full h-full object-contain"
-              width={497}
-              height={1024}
+  return (
+    <div
+      ref={containerRef}
+      className={`group flex-none snap-start ${containerClass} ${isFullscreen ? "fullscreen-active" : ""}`}
+    >
+      <div
+        className={`${videoClass} z-10 overflow-hidden bg-background relative`}
+      >
+        {isIntersecting && (
+          <>
+            {isLoading && <LoadingSpinner />}
+            <iframe
+              src={embedUrl}
+              title={`Vimeo video ${video.id}`}
+              className="w-full h-full border-0"
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+              allowFullScreen
               loading="lazy"
-              quality={80}
+              onLoad={handleLoad}
             />
-          </div>
+          </>
         )}
-        <div className={`${videoClass} z-10 overflow-hidden bg-background`}>
-          <video
-            ref={videoRef}
-            preload="metadata"
-            playsInline
-            loop
-            muted
-            autoPlay
-            controls={false}
-            poster="/loading-video.gif"
-            className="object-cover w-full h-full"
-            onLoadedData={handleLoadedData}
-          >
-            <source src={src} type="video/mp4" />
-          </video>
-        </div>
       </div>
-    );
-  }
-);
+    </div>
+  );
+});
 
-PortfolioVideo.displayName = "PortfolioVideo";
+VimeoPlayer.displayName = "VimeoPlayer";
 
-// Optimized scrollable section
-const ScrollableVideoSection = memo(
-  ({
-    videos,
-    isHorizontal,
-    onScroll,
-  }: {
-    videos: { src: string }[];
-    isHorizontal: boolean;
-    onScroll: (
-      scrollLeft: number,
-      scrollWidth: number,
-      clientWidth: number
-    ) => void;
-  }) => {
+const ScrollableSection = memo<VideoSectionProps>(
+  ({ videos, isHorizontal, onActiveChange }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const handleScroll = useCallback(() => {
-      if (scrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        onScroll(scrollLeft, scrollWidth, clientWidth);
-      }
-    }, [onScroll]);
-
-    useEffect(() => {
       const el = scrollRef.current;
-      if (el) {
-        el.addEventListener("scroll", handleScroll, { passive: true });
-        return () => el.removeEventListener("scroll", handleScroll);
-      }
-    }, [handleScroll]);
+      if (!el) return;
+
+      const { scrollLeft, scrollWidth, clientWidth } = el;
+      const activeIndex = calculateActiveIndex(
+        scrollLeft,
+        scrollWidth,
+        clientWidth,
+        videos.length
+      );
+      onActiveChange(activeIndex);
+    }, [videos.length, onActiveChange]);
 
     return (
       <div
@@ -159,12 +192,13 @@ const ScrollableVideoSection = memo(
         className={`flex overflow-x-auto snap-x snap-mandatory max-sm:pb-4 no-scrollbar md:grid md:gap-4 ${
           isHorizontal ? "" : "max-md:mx-8 md:grid-cols-2"
         }`}
+        onScroll={handleScroll}
       >
         <div className="flex-none pl-4 md:hidden" />
-        {videos.map((video, i) => (
-          <PortfolioVideo
-            key={`${isHorizontal ? "h" : "v"}-${i}`}
-            src={video.src}
+        {videos.map((video) => (
+          <VimeoPlayer
+            key={video.id}
+            video={video}
             isHorizontal={isHorizontal}
           />
         ))}
@@ -174,159 +208,122 @@ const ScrollableVideoSection = memo(
   }
 );
 
-ScrollableVideoSection.displayName = "ScrollableVideoSection";
+ScrollableSection.displayName = "ScrollableSection";
 
-const ParallaxHorizontalVideos = memo(
-  ({
-    videos,
-    onVideoChange,
-  }: {
-    videos: { src: string }[];
-    onVideoChange: (index: number) => void;
-  }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+const ParallaxSection = memo<{
+  videos: VimeoVideo[];
+  onVideoChange: (index: number) => void;
+}>(({ videos, onVideoChange }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const isFullscreen = useFullscreen();
 
-    const { scrollYProgress } = useScroll({
-      target: containerRef,
-      offset: ["start start", "end end"],
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const videoIndex = useTransform(
+    scrollYProgress,
+    videos.map((_, i) => i / (videos.length - 1)),
+    videos.map((_, i) => i)
+  );
+
+  // Subscribe to video index changes
+  useMemo(() => {
+    if (isFullscreen) return;
+
+    return videoIndex.on("change", (latest) => {
+      const rounded = Math.round(latest);
+      if (rounded !== currentIndex && rounded >= 0 && rounded < videos.length) {
+        setCurrentIndex(rounded);
+        onVideoChange(rounded);
+      }
     });
+  }, [videoIndex, currentIndex, onVideoChange, videos.length, isFullscreen]);
 
-    const videoIndex = useTransform(
-      scrollYProgress,
-      videos.map((_, i) => i / (videos.length - 1)),
-      videos.map((_, i) => i)
-    );
+  return (
+    <div
+      ref={containerRef}
+      className="relative hidden md:block"
+      style={{ height: `${videos.length * 100}vh` }}
+    >
+      <div className="sticky md:top-1/6">
+        <div className="relative w-full max-w-4xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                transition: {
+                  duration: isFullscreen ? 0 : 0.4,
+                  ease: "easeInOut",
+                },
+              }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{
+                duration: isFullscreen ? 0 : 0.4,
+                ease: "easeInOut",
+              }}
+            >
+              <VimeoPlayer video={videos[currentIndex]} isHorizontal />
+            </motion.div>
+          </AnimatePresence>
 
-    useEffect(() => {
-      const unsubscribe = videoIndex.on("change", (latest) => {
-        const rounded = Math.round(latest);
-        if (
-          rounded !== currentVideoIndex &&
-          rounded >= 0 &&
-          rounded < videos.length
-        ) {
-          setCurrentVideoIndex(rounded);
-          onVideoChange(rounded);
-        }
-      });
-      return unsubscribe;
-    }, [videoIndex, currentVideoIndex, onVideoChange, videos.length]);
-
-    return (
-      <div
-        ref={containerRef}
-        className="relative hidden md:block"
-        style={{ height: `${videos.length * 100}vh` }}
-      >
-        <div className="sticky md:top-[22%] lg:top-1/3 xl:top-[28%]">
-          <div className="relative w-full max-w-4xl mx-auto">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentVideoIndex}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                style={{
-                  willChange: "opacity, transform",
-                }}
-              >
-                <PortfolioVideo src={videos[currentVideoIndex].src} />
-              </motion.div>
-            </AnimatePresence>
-            {/* Progress indicator */}
-            {/* <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
+          {!isFullscreen && (
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
               {videos.map((_, i) => (
                 <div
                   key={i}
                   className={`w-2 rounded-full transition-all duration-300 ${
-                    i === currentVideoIndex ? "bg-white h-6" : "bg-white/30 h-2"
+                    i === currentIndex ? "bg-white h-6" : "bg-white/30 h-2"
                   }`}
                 />
               ))}
-            </div> */}
-            {/* Scroll progress bar */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-white rounded-full shadow-2xs"
-                style={{
-                  scaleX: scrollYProgress,
-                  transformOrigin: "left",
-                }}
-              />
             </div>
-          </div>
+          )}
         </div>
       </div>
-    );
-  }
-);
-
-ParallaxHorizontalVideos.displayName = "ParallaxHorizontalVideos";
-
-// Scroll indicators component
-const ScrollIndicators = memo(
-  ({
-    videos,
-    activeIndex,
-  }: {
-    videos: { src: string }[];
-    activeIndex: number;
-  }) => (
-    <div className="flex justify-center mt-2 space-x-2">
-      {videos.map((_, i) => (
-        <div
-          key={i}
-          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-            i === activeIndex ? "bg-foreground w-6" : "bg-muted-foreground/30"
-          }`}
-        />
-      ))}
     </div>
-  )
-);
+  );
+});
+
+ParallaxSection.displayName = "ParallaxSection";
+
+const ScrollIndicators = memo<{
+  videos: VimeoVideo[];
+  activeIndex: number;
+}>(({ videos, activeIndex }) => (
+  <div className="flex justify-center mt-2 space-x-2">
+    {videos.map((_, i) => (
+      <div
+        key={i}
+        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+          i === activeIndex ? "bg-foreground w-6" : "bg-muted-foreground/30"
+        }`}
+      />
+    ))}
+  </div>
+));
 
 ScrollIndicators.displayName = "ScrollIndicators";
 
-const motionProps = {
-  initial: { opacity: 0 },
-  whileInView: { opacity: 1 },
-  viewport: { once: true },
-  transition: { duration: 0.3, delay: 0.4 },
-};
-
+// Main Component
 export default function Portfolio() {
   const [horizontalActiveIndex, setHorizontalActiveIndex] = useState(0);
   const [verticalActiveIndex, setVerticalActiveIndex] = useState(0);
 
-  const videos = [
-    { src: "/video.mp4" },
-    { src: "/video.mp4" },
-    { src: "/video.mp4" },
-    { src: "/video.mp4" },
-  ];
-
-  const handleHorizontalScroll = useCallback(
-    (scrollLeft: number, scrollWidth: number, clientWidth: number) => {
-      const itemWidth = (scrollWidth - clientWidth) / (videos.length - 1);
-      const newIndex = Math.round(scrollLeft / itemWidth);
-      setHorizontalActiveIndex(
-        Math.min(Math.max(newIndex, 0), videos.length - 1)
-      );
-    },
-    [videos.length]
+  // Video data
+  const horizontalVideos: VimeoVideo[] = useMemo(
+    () => DATA.portfolio.horizontalVideos,
+    []
   );
 
-  const handleVerticalScroll = useCallback(
-    (scrollLeft: number, scrollWidth: number, clientWidth: number) => {
-      const itemWidth = (scrollWidth - clientWidth) / (videos.length - 1);
-      const newIndex = Math.round(scrollLeft / itemWidth);
-      setVerticalActiveIndex(
-        Math.min(Math.max(newIndex, 0), videos.length - 1)
-      );
-    },
-    [videos.length]
+  const verticalVideos: VimeoVideo[] = useMemo(
+    () => DATA.portfolio.verticalVideos,
+    []
   );
 
   return (
@@ -335,28 +332,28 @@ export default function Portfolio() {
 
       {/* Horizontal Videos */}
       <motion.div
-        {...motionProps}
-        className="grid lg:grid-cols-2 gap-10 items-start py-12 lg:py-10"
+        {...MOTION_CONFIG}
+        className="grid lg:grid-cols-1 gap-10 py-12 lg:py-10"
       >
-        <div className="order-2 lg:order-1">
+        <div className="order-1 md:order-2">
           <div className="md:hidden">
-            <ScrollableVideoSection
-              videos={videos}
-              isHorizontal={true}
-              onScroll={handleHorizontalScroll}
+            <ScrollableSection
+              videos={horizontalVideos}
+              isHorizontal
+              onActiveChange={setHorizontalActiveIndex}
             />
             <ScrollIndicators
-              videos={videos}
+              videos={horizontalVideos}
               activeIndex={horizontalActiveIndex}
             />
           </div>
-          <ParallaxHorizontalVideos
-            videos={videos}
+          <ParallaxSection
+            videos={horizontalVideos}
             onVideoChange={setHorizontalActiveIndex}
           />
         </div>
         <Info
-          className="lg:sticky lg:top-2/6 order-1 lg:order-2"
+          className="order-1 md:order-1 text-center"
           title="Horizontal Videos"
           description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
         />
@@ -364,7 +361,7 @@ export default function Portfolio() {
 
       {/* Vertical Reels */}
       <motion.div
-        {...motionProps}
+        {...MOTION_CONFIG}
         className="grid lg:grid-cols-2 gap-10 items-start"
       >
         <Info
@@ -373,14 +370,14 @@ export default function Portfolio() {
           description="Elevate your brand with captivating short-form video content tailored for discerning clients, reflecting your distinctive personality and style."
         />
         <div>
-          <ScrollableVideoSection
-            videos={videos}
+          <ScrollableSection
+            videos={verticalVideos}
             isHorizontal={false}
-            onScroll={handleVerticalScroll}
+            onActiveChange={setVerticalActiveIndex}
           />
           <div className="md:hidden">
             <ScrollIndicators
-              videos={videos}
+              videos={verticalVideos}
               activeIndex={verticalActiveIndex}
             />
           </div>
