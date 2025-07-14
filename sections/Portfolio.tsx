@@ -25,35 +25,12 @@ interface VideoSectionProps {
   onActiveChange: (index: number) => void;
 }
 
-// Constants
-const VIMEO_PARAMS = {
-  autoplay: "0",
-  loop: "0",
-  muted: "0",
-  controls: "1",
-  portrait: "0",
-  title: "0",
-  byline: "0",
-  background: "0",
-  responsive: "1",
-  quality: "360p",
-  playsinline: "1",
-  fullscreen: "1",
-} as const;
-
 const MOTION_CONFIG = {
   initial: { opacity: 0 },
   whileInView: { opacity: 1 },
   viewport: { once: true },
   transition: { duration: 0.3, delay: 0.4 },
 } as const;
-
-// Utilities
-const buildVimeoUrl = (src: string): string => {
-  const url = new URL(src);
-  const params = new URLSearchParams(VIMEO_PARAMS);
-  return `${url.origin}${url.pathname}?${params}`;
-};
 
 const calculateActiveIndex = (
   scrollLeft: number,
@@ -83,9 +60,8 @@ LoadingSpinner.displayName = "LoadingSpinner";
 const Info = memo<{
   title: string;
   description: string;
-  className?: string;
-}>(({ title, description, className = "" }) => (
-  <div className={`space-y-6 ${className} max-lg:text-center`}>
+}>(({ title, description }) => (
+  <div className={`space-y-6 text-center max-lg:text-center`}>
     <h3 className="text-2xl lg:text-4xl tracking-tighter font-medium mb-4">
       {title}
     </h3>
@@ -110,21 +86,11 @@ const VimeoPlayer = memo<{
   });
   const isFullscreen = useFullscreen();
 
-  const embedUrl = useMemo(() => buildVimeoUrl(video.src), [video.src]);
-
   const containerClass = useMemo(
     () =>
       isHorizontal
-        ? "w-full mr-4 md:mr-0 md:w-full md:snap-start"
-        : "relative w-full aspect-[9/16] mx-auto mr-4 md:mr-0 md:w-auto",
-    [isHorizontal]
-  );
-
-  const videoClass = useMemo(
-    () =>
-      isHorizontal
-        ? "relative aspect-video rounded-lg"
-        : "relative w-full h-full rounded-lg",
+        ? "w-full mr-4 aspect-video md:mr-0 md:w-full md:snap-start"
+        : "relative w-full aspect-[9/16] mx-auto mr-4 md:mr-0",
     [isHorizontal]
   );
 
@@ -145,13 +111,13 @@ const VimeoPlayer = memo<{
       className={`group flex-none snap-start ${containerClass} ${isFullscreen ? "fullscreen-active" : ""}`}
     >
       <div
-        className={`${videoClass} z-10 overflow-hidden bg-background relative`}
+        className={`w-full h-full overflow-hidden bg-background! relative rounded-lg`}
       >
         {isIntersecting && (
           <>
             {isLoading && <LoadingSpinner />}
             <iframe
-              src={embedUrl}
+              src={`${video.src}?autoplay=0&loop=0&muted=0&controls=1&portrait=0&title=0&byline=0&background=0&responsive=1&quality=360p&playsinline=1&fullscreen=1`}
               title={`Vimeo video ${video.id}`}
               className="w-full h-full border-0"
               allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
@@ -190,7 +156,7 @@ const ScrollableSection = memo<VideoSectionProps>(
       <div
         ref={scrollRef}
         className={`flex overflow-x-auto snap-x snap-mandatory max-sm:pb-4 no-scrollbar md:grid md:gap-4 ${
-          isHorizontal ? "" : "max-md:mx-8 md:grid-cols-2"
+          isHorizontal ? "" : "max-md:mx-8 md:grid-cols-2 lg:grid-cols-4"
         }`}
         onScroll={handleScroll}
       >
@@ -335,7 +301,11 @@ export default function Portfolio() {
         {...MOTION_CONFIG}
         className="grid lg:grid-cols-1 gap-10 py-12 lg:py-10"
       >
-        <div className="order-1 md:order-2">
+        <Info
+          title="Horizontal Videos"
+          description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
+        />
+        <div>
           <div className="md:hidden">
             <ScrollableSection
               videos={horizontalVideos}
@@ -352,20 +322,11 @@ export default function Portfolio() {
             onVideoChange={setHorizontalActiveIndex}
           />
         </div>
-        <Info
-          className="order-1 md:order-1 text-center"
-          title="Horizontal Videos"
-          description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
-        />
       </motion.div>
 
       {/* Vertical Reels */}
-      <motion.div
-        {...MOTION_CONFIG}
-        className="grid lg:grid-cols-2 gap-10 items-start"
-      >
+      <motion.div {...MOTION_CONFIG} className="grid items-center  gap-10">
         <Info
-          className="lg:sticky lg:top-2/6"
           title="Vertical reels"
           description="Elevate your brand with captivating short-form video content tailored for discerning clients, reflecting your distinctive personality and style."
         />
