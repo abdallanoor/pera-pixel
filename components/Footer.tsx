@@ -41,7 +41,7 @@ export default function Footer() {
             <Instagram size={20} />
           </a>
           <a
-            href="mailto:perapixel@gmail.com"
+            href="mailto:info@perapixel.com"
             target="_blank"
             className="text-muted-foreground hover:text-foreground transition-all"
           >
