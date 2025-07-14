@@ -2,8 +2,8 @@ export const DATA = {
   navbar: [
     { title: "Home", href: "#hero" },
     // { title: "About", href: "#about" },
-    { title: "Portfolio", href: "#portfolio" },
     { title: "Services", href: "#services" },
+    { title: "Portfolio", href: "#portfolio" },
     // { title: "Contact", href: "#contact" },
   ],
   hero: {
