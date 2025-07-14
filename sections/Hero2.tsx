@@ -29,7 +29,7 @@ export default function Hero2() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section id="hero" className="relative h-screen w-full overflow-hidden">
       {/* Background Video */}
       <video
         className="absolute inset-0 h-full w-full object-cover"
