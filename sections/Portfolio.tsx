@@ -207,7 +207,7 @@ export default function Portfolio() {
           <div className="mt-2">
             <VideoCarousel
               type="horizontal"
-              itemClassName="max-md:basis-[88%]"
+              itemClassName="max-md:basis-[85%]"
               videos={horizontalVideos}
             />
           </div>
@@ -224,7 +224,7 @@ export default function Portfolio() {
             <VideoCarousel
               type="vertical"
               videos={verticalVideos}
-              itemClassName="basis-[88%]"
+              itemClassName="basis-[85%]"
             />
           </div>
           {/* Desktop Grid */}
