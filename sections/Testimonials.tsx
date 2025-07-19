@@ -95,7 +95,11 @@ export default function Testimonials() {
 
   return (
     <section className="container relative py-12">
-      <SectionHeader title="What our clients say" tag="Testimonials" />
+      <SectionHeader
+        title="What our clients say"
+        tag="Testimonials"
+        discription="Real feedback from people we’ve worked with. Honest thoughts on how the videos helped them show their properties better."
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 15 }}

@@ -9,7 +9,11 @@ export default function Services() {
 
   return (
     <section id="services" className="relative container py-12">
-      <SectionHeader tag="Services" title="Tailored video production" />
+      <SectionHeader
+        tag="Services"
+        title="Tailored video production"
+        discription="We create custom real estate videos that match your brand, highlight key features, and attract serious buyers."
+      />
 
       <motion.div
         initial={{ opacity: 0 }}
