@@ -170,15 +170,13 @@ const VideoGridItem = memo<{ video: Video; index: number }>(
 
 VideoGridItem.displayName = "VideoGridItem";
 
-const SectionInfo = memo<SectionInfoProps>(({ title, description }) => (
-  <div className="text-center max-w-2xl mx-auto py-6">
+const SectionInfo = memo<SectionInfoProps>(({ title, description, id }) => (
+  <div className="text-start max-md:max-w-2xl max-md:mx-auto py-6">
     <h3 className="text-2xl lg:text-4xl tracking-tighter font-medium mb-2">
-      {title}
+      <span className="text-muted-foreground">{id}</span> {title}
     </h3>
     {description && (
-      <p className="text-muted-foreground md:text-lg max-lg:max-w-lg max-lg:mx-auto lg:max-w-2xl mx-auto">
-        {description}
-      </p>
+      <p className="text-muted-foreground lg:max-w-2xl">{description}</p>
     )}
   </div>
 ));
@@ -190,7 +188,11 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="container py-12">
-      <SectionHeader tag="Portfolio" title="Cinematic Visual Experiences" />
+      <SectionHeader
+        tag="Portfolio"
+        title="Cinematic Visual Experiences"
+        discription="Here’s a look at some of our recent work. Each video is done to suit the space, with natural flow and clean visuals."
+      />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -201,6 +203,7 @@ export default function Portfolio() {
         {/* Horizontal Videos Section */}
         <div>
           <SectionInfo
+            id="01"
             title="Horizontal Videos"
             description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
           />
@@ -216,6 +219,7 @@ export default function Portfolio() {
         {/* Vertical Videos Section */}
         <div className="mt-6">
           <SectionInfo
+            id="02"
             title="Vertical reels"
             description="Elevate your brand with captivating short-form video content tailored for discerning clients, reflecting your distinctive personality and style."
           />

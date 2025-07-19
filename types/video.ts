@@ -24,4 +24,5 @@ export interface VideoCarouselProps {
 export interface SectionInfoProps {
   title: string;
   description?: string;
+  id?: string
 }
