@@ -220,7 +220,7 @@ export default function Portfolio() {
             <VideoCarousel
               type="vertical"
               videos={verticalVideos}
-              itemClassName="basis-10/12"
+              itemClassName="basis-9/12"
             />
           </div>
           {/* Desktop Grid */}
