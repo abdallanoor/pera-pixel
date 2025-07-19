@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Perapixel Agecy",
+  title: "Perapixel",
   description:
     "Professional video editing services that transform your property listings into captivating visual experiences that sell.",
 };
