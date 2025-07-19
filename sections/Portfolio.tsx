@@ -205,7 +205,11 @@ export default function Portfolio() {
             description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
           />
           <div className="mt-2">
-            <VideoCarousel type="horizontal" videos={horizontalVideos} />
+            <VideoCarousel
+              type="horizontal"
+              itemClassName="basis-4/5"
+              videos={horizontalVideos}
+            />
           </div>
         </div>
 
@@ -220,7 +224,7 @@ export default function Portfolio() {
             <VideoCarousel
               type="vertical"
               videos={verticalVideos}
-              itemClassName="basis-9/12"
+              itemClassName="basis-4/5"
             />
           </div>
           {/* Desktop Grid */}
