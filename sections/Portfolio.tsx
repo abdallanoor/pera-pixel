@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/carousel";
 import { useCarouselNavigation } from "@/hooks/use-carousel-navigation";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { AlertCircle, Smile } from "lucide-react";
+import { AlertCircle, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   NavigationDotsProps,
@@ -65,7 +65,7 @@ const VideoIframe = memo<VideoIframeProps>(({ src, className = "" }) => {
         <div className="w-full h-full flex items-center justify-center bg-muted/50 rounded-lg">
           <div className="text-center">
             <div className="w-12 h-12 mx-auto mb-2 bg-muted/70 rounded-full flex items-center justify-center">
-              <Smile size={24} className="text-muted-foreground" />
+              <Play size={24} className="text-muted-foreground" />
             </div>
           </div>
         </div>
