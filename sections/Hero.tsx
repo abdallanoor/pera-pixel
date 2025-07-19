@@ -1,17 +1,12 @@
 "use client";
 
-import { useInView } from "framer-motion";
 import { motion } from "motion/react";
-import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
-// import Companies from "../components/Companies";
+import Companies from "../components/Companies";
 import { DATA } from "@/data/content";
 // import { Spotlight } from "@/components/Spotlight";
 
 export default function Hero() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
   const handleNavClick = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -23,7 +18,6 @@ export default function Hero() {
     <section
       id="hero"
       aria-label="Hero Section"
-      ref={ref}
       className="relative flex-col items-center justify-center max-sm:h-screen pt-20 antialiased overflow-hidden"
     >
       <div className="absolute inset-y-0 left-0 h-full w-px">
@@ -43,11 +37,7 @@ export default function Hero() {
             <motion.span
               key={index}
               initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-              animate={
-                isInView
-                  ? { opacity: 1, filter: "blur(0px)", y: 0 }
-                  : { opacity: 0, filter: "blur(4px)", y: 10 }
-              }
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{
                 duration: 0.3,
                 delay: index * 0.1,
@@ -61,11 +51,7 @@ export default function Hero() {
 
           <motion.span
             initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-            animate={
-              isInView
-                ? { opacity: 1, filter: "blur(0px)", y: 0 }
-                : { opacity: 0, filter: "blur(4px)", y: 10 }
-            }
+            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             transition={{
               duration: 0.3,
               delay: 0.3,
@@ -80,11 +66,7 @@ export default function Hero() {
             <motion.span
               key={`after-${index}`}
               initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-              animate={
-                isInView
-                  ? { opacity: 1, filter: "blur(0px)", y: 0 }
-                  : { opacity: 0, filter: "blur(4px)", y: 10 }
-              }
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{
                 duration: 0.3,
                 delay: 0.5 + index * 0.1,
@@ -98,18 +80,32 @@ export default function Hero() {
         </h1>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.8 }}
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            duration: 0.3,
+            delay: 0.8,
+          }}
           className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-600 dark:text-neutral-400"
         >
           {DATA.hero.subtitle}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 1 }}
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            duration: 0.3,
+            delay: 1,
+          }}
           className="relative z-10 mt-4 flex flex-wrap items-center justify-center gap-4"
         >
           <button
@@ -129,9 +125,18 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 0.3, delay: 1.2 }}
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.3,
+            delay: 1.2,
+          }}
           className="relative z-10 mt-10 rounded-3xl border border-neutral-200 bg-neutral-100 p-2 md:p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden"
         >
           <div className="relative w-full overflow-hidden rounded-xl border border-gray-300 dark:border-neutral-800">
@@ -149,7 +154,7 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
-      {/* <Companies isInView={isInView} /> */}
+      <Companies />
     </section>
   );
 }

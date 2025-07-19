@@ -16,7 +16,7 @@ export default function Contact() {
   );
 
   return (
-    <section id="contact" className="container py-14">
+    <section id="contact" className="container py-12">
       <SectionHeader
         tag="Contact"
         title="Get in Touch"

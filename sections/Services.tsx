@@ -8,7 +8,7 @@ export default function Services() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   return (
-    <section id="services" className="relative container py-16">
+    <section id="services" className="relative container py-12">
       <SectionHeader tag="Services" title="Tailored video production" />
 
       <motion.div
@@ -20,7 +20,7 @@ export default function Services() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div
-            className="bg-card border rounded-2xl p-4 lg:p-8 transition-all duration-300 hover:shadow-lg group cursor-pointer"
+            className="bg-card border rounded-2xl p-4 lg:p-8 transition-all duration-300 hover:shadow-md group cursor-pointer"
             onMouseEnter={() => setHoveredCard("drone")}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -54,7 +54,7 @@ export default function Services() {
           </div>
 
           <div
-            className="bg-card border rounded-2xl p-4 lg:p-8 transition-all duration-300 hover:shadow-lg group cursor-pointer"
+            className="bg-card border rounded-2xl p-4 lg:p-8 transition-all duration-300 hover:shadow-md group cursor-pointer"
             onMouseEnter={() => setHoveredCard("reels")}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -89,7 +89,7 @@ export default function Services() {
         </div>
 
         <div
-          className="bg-card border rounded-2xl p-4 lg:p-8 transition-all duration-300 hover:shadow-lg group cursor-pointer"
+          className="bg-card border rounded-2xl p-4 lg:p-8 transition-all duration-300 hover:shadow-md group cursor-pointer"
           onMouseEnter={() => setHoveredCard("horizontal")}
           onMouseLeave={() => setHoveredCard(null)}
         >

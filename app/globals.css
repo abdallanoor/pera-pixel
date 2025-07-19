@@ -111,7 +111,7 @@
     @apply font-medium text-sm tracking-tight select-none bg-background!;
   }
   .section-title {
-    @apply text-center text-3xl md:text-5xl md:leading-14 font-bold tracking-tighter max-w-2xl;
+    @apply text-center text-3xl md:text-5xl md:leading-14 font-bold tracking-tight max-w-2xl;
   }
   .shadow-input {
     --tw-shadow:

@@ -20,16 +20,16 @@ export const DATA = {
   },
   portfolio: {
     horizontalVideos: [
-      { src: "https://player.vimeo.com/video/925241512", id: "h-1" },
-      { src: "https://player.vimeo.com/video/930127702", id: "h-2" },
-      { src: "https://player.vimeo.com/video/929718008", id: "h-3" },
-      { src: "https://player.vimeo.com/video/925230037", id: "h-4" },
+      { src: "https://player.vimeo.com/video/1101421061" },
+      { src: "https://player.vimeo.com/video/1102476524" },
+      { src: "https://player.vimeo.com/video/929718008" },
+      { src: "https://player.vimeo.com/video/925230037" },
     ],
     verticalVideos: [
-      { src: "https://player.vimeo.com/video/1100999769", id: "v-1" },
-      { src: "https://player.vimeo.com/video/1100996421", id: "v-2" },
-      { src: "https://player.vimeo.com/video/1100993146", id: "v-3" },
-      { src: "https://player.vimeo.com/video/1099072636", id: "v-4" },
+      { src: "https://player.vimeo.com/video/1100999769" },
+      { src: "https://player.vimeo.com/video/1100996421" },
+      { src: "https://player.vimeo.com/video/1100993146" },
+      { src: "https://player.vimeo.com/video/1099072636" },
     ]
   },
   testimonials: [
