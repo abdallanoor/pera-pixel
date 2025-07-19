@@ -53,56 +53,29 @@ export default function Hero2() {
         animate="visible"
       >
         <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold md:text-4xl lg:text-7xl">
-          {"Elevate Your".split(" ").map((word, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: index * 0.1,
-                ease: "easeInOut",
-              }}
-              className="mr-2 inline-block"
-            >
-              {word}
-            </motion.span>
-          ))}
-
-          <motion.span
-            initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            transition={{
-              duration: 0.3,
-              delay: 0.3,
-              ease: "easeInOut",
-            }}
-            className="mr-2 inline-block bg-gradient-to-b from-blue-300 to-blue-500 bg-clip-text text-transparent"
-          >
-            Real Estate
-          </motion.span>
-
-          {"with Stunning Videos".split(" ").map((word, index) => (
-            <motion.span
-              key={`after-${index}`}
-              initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: 0.5 + index * 0.1,
-                ease: "easeInOut",
-              }}
-              className="mr-2 inline-block"
-            >
-              {word}
-            </motion.span>
-          ))}
+          {"Elevate Your Real Estate with Stunning Videos"
+            .split(" ")
+            .map((word, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.1,
+                  ease: "easeInOut",
+                }}
+                className="mr-2 inline-block"
+              >
+                {word}
+              </motion.span>
+            ))}
         </h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.8 }}
-          className="mt-6 max-w-4xl text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed"
+          className="mt-6 max-w-4xl text-base sm:text-lg md:text-xl opacity-50 leading-relaxed"
         >
           {DATA.hero.subtitle}
         </motion.p>
