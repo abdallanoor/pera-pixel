@@ -18,7 +18,7 @@ export function useIntersectionObserver(options = {}) {
       },
       {
         threshold: 0.1,
-        rootMargin: '100px',
+        rootMargin: '200px',
         ...options,
       }
     );
