@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pera Pixel",
-  description: "Coming Soon",
+  title: "Perapixel Agecy",
+  description:
+    "Professional video editing services that transform your property listings into captivating visual experiences that sell.",
 };
 
 export default function RootLayout({
