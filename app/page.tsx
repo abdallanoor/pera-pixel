@@ -5,12 +5,13 @@ import Footer from "@/components/Footer";
 import Services from "@/sections/Services";
 import Hero from "@/sections/Hero";
 import Portfolio from "@/sections/Portfolio";
+import Hero2 from "@/sections/Hero2";
 
 export default function Home() {
   return (
     <main>
       <MobileNav />
-      <Hero />
+      <Hero2 />
       <Services />
       <Portfolio />
       <Testimonials />
