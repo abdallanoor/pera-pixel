@@ -18,8 +18,8 @@ export const DATA = {
   },
   portfolio: {
     horizontalVideos: [
-      { src: "https://player.vimeo.com/video/1101421061" },
       { src: "https://player.vimeo.com/video/1102476524" },
+      { src: "https://player.vimeo.com/video/1101421061" },
       { src: "https://player.vimeo.com/video/929718008" },
       { src: "https://player.vimeo.com/video/925230037" },
     ],
