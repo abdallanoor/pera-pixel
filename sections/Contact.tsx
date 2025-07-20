@@ -101,7 +101,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="text-sm">
-              <h4 className="text-foreground font-medium">Instagram</h4>
+              <p className="text-foreground font-medium">Instagram</p>
               <p className="text-muted-foreground">@perapixel</p>
             </div>
             <BottomGradient />
@@ -117,7 +117,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="text-sm">
-              <h4 className="text-foreground font-medium">Email</h4>
+              <p className="text-foreground font-medium">Email</p>
               <p className="text-muted-foreground">info@perapixel.com</p>
             </div>
             <BottomGradient />
