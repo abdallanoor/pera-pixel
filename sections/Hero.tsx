@@ -18,6 +18,8 @@ export default function Hero() {
         loop
         muted
         playsInline
+        aria-label="Real estate showcase video"
+        role="img"
       >
         {"Your browser does not support the video tag."}
       </video>
