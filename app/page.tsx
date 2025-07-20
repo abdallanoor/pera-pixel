@@ -4,20 +4,22 @@ import Contact from "@/sections/Contact";
 import Footer from "@/components/Footer";
 import Services from "@/sections/Services";
 import Portfolio from "@/sections/Portfolio";
-import Hero2 from "@/sections/Hero2";
 import Companies from "@/components/Companies";
+import Hero from "@/sections/Hero";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <MobileNav />
-      <Hero2 />
-      <Companies />
-      <Services />
-      <Portfolio />
-      <Testimonials />
-      <Contact />
+      <main>
+        <Hero />
+        <Companies />
+        <Services />
+        <Portfolio />
+        <Testimonials />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

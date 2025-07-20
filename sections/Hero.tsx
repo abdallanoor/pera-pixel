@@ -1,160 +1,121 @@
 "use client";
 
-import { motion } from "motion/react";
-import { ChevronRight } from "lucide-react";
-import Companies from "../components/Companies";
+import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/content";
-// import { Spotlight } from "@/components/Spotlight";
+import { heroContainer, heroItem } from "@/lib/motionVariants";
+import { handleNavClick } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 export default function Hero() {
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <section
-      id="hero"
-      aria-label="Hero Section"
-      className="relative flex-col items-center justify-center max-sm:h-screen pt-20 antialiased overflow-hidden"
-    >
-      <div className="absolute inset-y-0 left-0 h-full w-px">
-        <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
-      </div>
-      <div className="absolute inset-y-0 right-0 h-full w-px">
-        <div className="absolute h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
-      </div>
-      <div className="absolute inset-x-0 bottom-0 h-px w-full">
-        <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-      </div>
+    <section id="hero" className="relative h-screen w-full overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/video.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        {"Your browser does not support the video tag."}
+      </video>
 
-      <div className="relative px-4 py-10 md:py-10 container">
-        {/* <Spotlight /> */}
-        <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold md:text-4xl lg:text-7xl">
-          {"Elevate Your".split(" ").map((word, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: index * 0.1,
-                ease: "easeInOut",
-              }}
-              className="mr-2 inline-block"
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/60" />
+
+      <motion.div
+        className="container relative z-10 flex h-full flex-col items-center gap-6 justify-center text-center text-white px-4 md:px-6"
+        variants={heroContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
+          variants={heroItem}
+        >
+          <Sparkles size={16} />
+          <span className="text-sm font-medium text-white/90">
+            Premium Video Solutions
+          </span>
+        </motion.div>
+
+        <motion.h1
+          variants={heroItem}
+          className="mx-auto max-w-4xl text-center text-3xl font-bold md:text-4xl lg:text-7xl text-white"
+        >
+          Elevate Your{" "}
+          <span className="relative inline-block">
+            <span className="bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent">
+              Real Estate
+            </span>
+            <svg
+              className="absolute -bottom-2 lg:-bottom-3 left-0 w-full h-4 lg:h-6"
+              viewBox="0 0 200 20"
+              preserveAspectRatio="none"
             >
-              {word}
-            </motion.span>
-          ))}
-
-          <motion.span
-            initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            transition={{
-              duration: 0.3,
-              delay: 0.3,
-              ease: "easeInOut",
-            }}
-            className="mr-2 inline-block bg-gradient-to-b from-blue-300 to-blue-500 bg-clip-text text-transparent"
-          >
-            Real Estate
-          </motion.span>
-
-          {"with Stunning Videos".split(" ").map((word, index) => (
-            <motion.span
-              key={`after-${index}`}
-              initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: 0.5 + index * 0.1,
-                ease: "easeInOut",
-              }}
-              className="mr-2 inline-block"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </h1>
+              <path
+                d="M10,15 Q100,5 190,15"
+                stroke="#3b82f6"
+                strokeWidth="3"
+                fill="none"
+                strokeLinecap="round"
+                className="animate-drawLine"
+              />
+            </svg>
+          </span>{" "}
+          with Stunning Videos
+        </motion.h1>
 
         <motion.p
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            duration: 0.3,
-            delay: 0.8,
-          }}
-          className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-600 dark:text-neutral-400"
+          variants={heroItem}
+          className="max-w-4xl text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed"
         >
           {DATA.hero.subtitle}
         </motion.p>
-
         <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            duration: 0.3,
-            delay: 1,
-          }}
-          className="relative z-10 mt-4 flex flex-wrap items-center justify-center gap-4"
+          className="mt-2 flex gap-4 max-md:flex-col"
+          variants={heroItem}
         >
-          <button
-            aria-label="Explore Our Projects"
-            className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl rounded-full p-1 text-sm font-semibold leading-6 text-white inline-block"
+          <Button
+            className="bg-blue-600 text-white rounded-full  p-6 hover:bg-blue-700 cursor-pointer"
             onClick={() => handleNavClick("#portfolio")}
           >
-            <span className="absolute inset-0 overflow-hidden rounded-full">
-              <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-            </span>
-            <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1 px-6 ring-1 ring-white/10 ">
-              <span>{`Explore Our Projects`}</span>
-              <ChevronRight className="w-3 h-3" />
-            </div>
-            <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-blue-500/0 via-blue-500/90 to-blue-500/0 transition-opacity duration-500 group-hover:opacity-40"></span>
-          </button>
+            Explore Our Projects
+          </Button>
+          <Button
+            className="rounded-full p-6 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 cursor-pointer"
+            onClick={() => handleNavClick("#contact")}
+          >
+            Contact Us
+          </Button>
         </motion.div>
-
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 10,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.3,
-            delay: 1.2,
-          }}
-          className="relative z-10 mt-10 rounded-3xl border border-neutral-200 bg-neutral-100 p-2 md:p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.5, duration: 0.8 }}
+          onClick={() => handleNavClick("#companies")}
         >
-          <div className="relative w-full overflow-hidden rounded-xl border border-gray-300 dark:border-neutral-800">
-            {/* <div className="absolute inset-x-0 bottom-0 h-40 w-full bg-gradient-to-b from-transparent via-black/50 to-black scale-[1.1] pointer-events-none z-10"></div> */}
-            <div className="aspect-[16/9] h-auto w-full overflow-hidden rounded-xl">
-              <video
-                src={DATA.hero.video}
-                className="w-full h-full object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
+          <motion.div
+            className="flex flex-col items-center gap-3 cursor-pointer group"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span className="text-white/60 text-sm font-medium group-hover:text-white/80 transition-colors">
+              Scroll to discover
+            </span>
+            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors">
+              <motion.div
+                className="w-1 h-3 bg-white/60 rounded-full mt-2 group-hover:bg-white/80"
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity }}
               />
             </div>
-          </div>
+          </motion.div>
         </motion.div>
-      </div>
-      <Companies />
+      </motion.div>
     </section>
   );
 }

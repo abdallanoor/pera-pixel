@@ -6,7 +6,8 @@ import { Menu } from "lucide-react";
 import { DATA } from "@/data/content";
 import ThemeToggle from "./theme-toggle";
 import MobileNav from "./MobileNav";
-import ShareButton from "./ShareButton";
+import { Button } from "./ui/button";
+import { handleNavClick } from "@/lib/utils";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,18 +39,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", updateScrollDirection);
   }, [scrollDirection]);
 
-  const handleNavClick = (href: string) => {
-    setIsOpen(false);
-    setTimeout(() => {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: "smooth" });
-    }, 300);
-  };
-
   return (
     <>
       <motion.header
-        className="container fixed top-4 px-5 py-3 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10 rounded-full z-40"
+        className="container fixed top-4 px-5 py-3 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10 rounded-full z-40 dark:bg-background/70"
         initial={{ y: -100 }}
         animate={
           isOpen
@@ -68,8 +61,7 @@ export default function Navbar() {
             href="#hero"
             onClick={(e) => {
               e.preventDefault();
-              const element = document.querySelector("#hero");
-              element?.scrollIntoView({ behavior: "smooth" });
+              handleNavClick("#hero");
             }}
             className="text-foreground font-bold text-lg flex-1"
           >
@@ -97,7 +89,12 @@ export default function Navbar() {
           <div className="flex gap-2 items-center flex-1 justify-end">
             <ThemeToggle />
             <div className="max-md:hidden">
-              <ShareButton label="Contact" link="contact" />
+              <Button
+                onClick={() => handleNavClick("#contact")}
+                className="bg-blue-600 text-white rounded-full py-1 px-6 h-9 hover:bg-blue-700 cursor-pointer"
+              >
+                Contact
+              </Button>
             </div>
             <motion.button
               onClick={() => setIsOpen(true)}
@@ -112,11 +109,7 @@ export default function Navbar() {
         </nav>
       </motion.header>
 
-      <MobileNav
-        handleNavClick={handleNavClick}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
+      <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }

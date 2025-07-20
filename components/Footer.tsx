@@ -1,15 +1,9 @@
 "use client";
 
 import { DATA } from "@/data/content";
-// import { Instagram, Mail } from "lucide-react";
+import { handleNavClick } from "@/lib/utils";
 
 export default function Footer() {
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
   return (
     <footer className="container py-10">
       <div className="flex items-center justify-between gap-4 flex-col lg:flex-row py-10">
@@ -32,22 +26,6 @@ export default function Footer() {
             </li>
           ))}
         </ul>
-        {/* <div className="flex gap-2"> 
-          <a
-            href="https://www.instagram.com/perapixel"
-            target="_blank"
-            className="text-muted-foreground hover:text-foreground transition-all"
-          >
-            <Instagram size={20} />
-          </a>
-          <a
-            href="mailto:info@perapixel.com"
-            target="_blank"
-            className="text-muted-foreground hover:text-foreground transition-all"
-          >
-            <Mail size={20} />
-          </a>
-        </div> */}
         <p className="flex-1 flex justify-end text-muted-foreground">
           © 2025 Perapixel Agency
         </p>

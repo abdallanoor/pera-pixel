@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Companies() {
   return (
-    <section className="container pt-12">
+    <section id="companies" className="container pt-12">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

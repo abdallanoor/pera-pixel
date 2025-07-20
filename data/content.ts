@@ -1,10 +1,8 @@
 export const DATA = {
   navbar: [
     { title: "Home", href: "#hero" },
-    // { title: "About", href: "#about" },
     { title: "Services", href: "#services" },
     { title: "Portfolio", href: "#portfolio" },
-    // { title: "Contact", href: "#contact" },
   ],
   hero: {
     subtitle: "Professional video editing services that transform your property listings into captivating visual experiences that sell.",
@@ -36,73 +34,75 @@ export const DATA = {
     {
       id: "1",
       name: "Manu Arora",
-      role: "Tech Innovator & Entrepreneur",
+      role: "Videographer",
       content:
-        "What a fantastic AI Every AI is, I just love it. It has completely transformed the way I approach problems and develop solutions.",
+        "Appreciate the high quality and attention to detail, often times I don't have to tell Ahmed anything he already knows how critical I am and makes sure the smallest details are flushed out as if I was editing myself. Time is money in this industry and revisions cost time and that's where Ahmed and team excel! Nailing a vision right from the jump!",
       avatar: "/avatar-1.png",
     },
     {
       id: "2",
       name: "Tyler Durden",
-      role: "Creative Director & Business Owner",
+      role: "Videographer",
       content:
-        "I made a soap with the help of AI, it was so easy to use. I'm so glad this happened because it revolutionized my entire business model and production process.",
+        "Out of the 100's of editors available on the market, there's nobody as consistent, solid, and reliable as Ahmed—that edit you seen from your favorite videographer was most likely cooked by him. Plus he's always somehow available too if you got special requests it's like he doesn't sleep sometimes lol",
       avatar: "/avatar-2.png",
     },
     {
       id: "3",
       name: "Alice Johnson",
-      role: "Senior Software Engineer",
+      role: "Videographer",
       content:
-        "This AI has transformed the way I work! It's like having a brilliant assistant who knows exactly what I need before I even ask.",
+        `Ahmed is one of the best editors in the Real Estate space and nobody can deny that. He is constantly innovating and cooking up bangers. He gets the vibe right every time, turns projects around quick, and always delivers clean, creative edits that my clients love. Super easy to work with and just a good dude overall.
+
+        Perapixel as a company has been reliable since day one. Great communication, consistent quality, and they just get it. If you're looking for someone to trust with your content, Ahmed and his team are the real deal.`,
       avatar: "/avatar-3.png",
     },
     {
       id: "4",
       name: "Bob Smith",
-      role: "Industry Analyst",
+      role: "Videographer",
       content:
-        "Absolutely revolutionary, a game-changer for our industry. It has streamlined our processes and enhanced our productivity dramatically.",
+        `Working with Ahmed Antar has been a total game-changer. I was lucky enough to have him on board from the very beginning—and his talent speaks for itself. His editing took my content from "good" to next level, elevating the quality, storytelling, and overall impact of every video we've produced. His work hasn't just improved my visuals—it's directly helped grow my client base and position my brand as a premium service. Incredibly skilled, professional, and collaborative—Ahmed is the best in the game.`,
       avatar: "/avatar-4.png",
     },
     {
       id: "5",
       name: "Cathy Lee",
-      role: "Product Manager",
+      role: "Videographer",
       content:
-        "I can't imagine going back to how things were before this AI. It has not only improved my work efficiency but also my daily life.",
+        "Ahmed has been our go-to video editor for the past two years, and the growth he's shown across the board has been nothing short of impressive. He's honest, dependable, and always willing to go the extra mile — constantly experimenting with new effects and pushing each edit to the next level. He truly values relationships, and without a doubt, he's someone I'll be working with for the next 10 years.",
       avatar: "/avatar-5.png",
     },
     {
       id: "6",
       name: "David Wright",
-      role: "Research Scientist",
+      role: "Videographer",
       content:
-        "It's like having a superpower! This AI tool has given us the ability to do things we never thought were possible in our field.",
+        "Working with Perapixel has been a game changer for my business. Their attention to detail and high quality edits consistently exceed my expectations. I highly recommend Ahmed and Perapixel for your real estate video editing needs!",
       avatar: "/avatar-6.png",
     },
     {
       id: "7",
       name: "Eva Green",
-      role: "Operations Director",
+      role: "Videographer",
       content:
-        "The efficiency it brings is unmatched. It's a vital tool that has helped us cut costs and improve our end product significantly.",
+        "Perpixel is one of the best teams I have ever worked with for real estate and video editing. Not only do they exceed my expectations but their customer service is top notch. Always willing to listen to ideas and they want to make sure our clients are happy! Very responsive and respectful too.",
       avatar: "/avatar-7.png",
     },
     {
       id: "8",
       name: "Frank Moore",
-      role: "Project Manager",
+      role: "Videographer",
       content:
-        "A robust solution that fits perfectly into our workflow. It has enhanced our team's capabilities and allowed us to tackle more complex projects.",
+        "Ahmed (aka The GOAT) is an impressively skilled and dependable editor for all video types, from real estate to fitness. He consistently delivers high-quality, cinematic edits, expertly bringing visions to life with sharp attention to detail and tight timelines. A talented and genuinely enjoyable creative partner, Ahmed is, without a doubt, one of the best editors out there.",
       avatar: "/avatar-8.png",
     },
     {
       id: "9",
       name: "Grace Hall",
-      role: "Marketing Specialist",
+      role: "Videographer",
       content:
-        "It's incredibly intuitive and easy to use. Even those without technical expertise can leverage its power to improve their workflows.",
+        "I wholeheartedly recommend Ahmed for real estate video editing. At Studio 910, he's our trusted go-to during high-volume periods, consistently delivering high-quality, on-time work that meets our brand's standards. Ahmed's attention to detail, professionalism, and passion make him a reliable and talented partner truly invested in your success.",
       avatar: "/avatar-9.png",
     },
   ]

@@ -1,66 +1,23 @@
 import { DATA } from "@/data/content";
-import { motion, type Variants } from "framer-motion";
+import {
+  mobileNavContainer,
+  mobileNavItem,
+  mobileNavMenu,
+} from "@/lib/motionVariants";
+import { handleNavClick } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
 type MobileNavProps = {
-  handleNavClick: (href: string) => void;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 };
 
-export default function MobileNav({
-  handleNavClick,
-  isOpen,
-  setIsOpen,
-}: MobileNavProps) {
-  const menuVariants: Variants = {
-    closed: {
-      clipPath: "circle(0% at 100% 0%)",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-      },
-    },
-    open: {
-      clipPath: "circle(150% at 100% 0%)",
-      transition: {
-        type: "spring",
-        stiffness: 20,
-        restDelta: 2,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    closed: {
-      y: 80,
-      opacity: 0,
-    },
-    open: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 24,
-      },
-    },
-  };
-
-  const containerVariants: Variants = {
-    closed: {},
-    open: {
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+export default function MobileNav({ isOpen, setIsOpen }: MobileNavProps) {
   return (
     <motion.div
       className="fixed inset-0 z-50"
-      variants={menuVariants}
+      variants={mobileNavMenu}
       initial="closed"
       animate={isOpen ? "open" : "closed"}
     >
@@ -84,7 +41,7 @@ export default function MobileNav({
         aria-label="Full Screen Navigation"
       >
         <motion.div
-          variants={containerVariants}
+          variants={mobileNavContainer}
           initial="closed"
           animate={isOpen ? "open" : "closed"}
           className="space-y-8"
@@ -93,14 +50,14 @@ export default function MobileNav({
             (item, index) => (
               <motion.div
                 key={index}
-                variants={itemVariants}
+                variants={mobileNavItem}
                 className="group cursor-pointer"
               >
                 <a
                   href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    handleNavClick(item.href);
+                    handleNavClick(item.href, true, setIsOpen);
                   }}
                   className="flex items-center gap-6"
                 >
