@@ -129,7 +129,7 @@ const VideoCarousel = memo<VideoCarouselProps>(
         <Carousel
           className="w-full"
           setApi={setApi}
-          opts={{ align: "center", loop: true }}
+          opts={{ align: "center", loop: false }}
         >
           <CarouselContent>
             {videos.map((video, index) => (
