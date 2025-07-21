@@ -92,7 +92,7 @@ const VideoIframe = memo<VideoIframeProps>(({ src, className = "" }) => {
           ) : (
             <iframe
               src={iframeSrc}
-              className={`w-full h-full border-0 rounded-lg ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
+              className={`w-full h-full border-0 rounded-lg ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300 scheme-normal!`}
               allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
               allowFullScreen
               loading="lazy"
