@@ -33,7 +33,7 @@ export default function Companies() {
                 width={100}
                 height={38}
                 alt={logo.title}
-                className="w-auto h-8 dark:invert"
+                className={`w-auto h-8 filter grayscale ${logo.color === "black" ? "invert-0 dark:invert" : "invert dark:invert-0"}`}
               />
             ))}
 
@@ -46,7 +46,7 @@ export default function Companies() {
                 width={100}
                 height={38}
                 alt={logo.title}
-                className="w-auto h-8 invert"
+                className={`w-auto h-8 filter grayscale ${logo.color === "black" ? "invert-0 dark:invert" : "invert dark:invert-0"}`}
               />
             ))}
           </motion.div>

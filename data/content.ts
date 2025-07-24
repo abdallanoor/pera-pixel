@@ -7,12 +7,12 @@ export const DATA = {
   hero: {
     subtitle: "Professional video editing services that transform your property listings into captivating visual experiences that sell.",
     logos: [
-      { image: "/logo-acme.png", title: "Google" },
-      { image: "/logo-apex.png", title: "Meta" },
-      { image: "/logo-celestial.png", title: "Netflix" },
-      { image: "/logo-echo.png", title: "OnlyFans" },
-      { image: "/logo-pulse.png", title: "Amazon" },
-      { image: "/logo-quantum.png", title: "Apple" },
+      { image: "/studio910pb.svg", title: "Studio910pb", color: 'white' },
+      { image: "/THE ICON METHOD.png", title: "THE ICON METHOD", color: 'white' },
+      { image: "/ICAPTUREHOMES PHOTOGRAPHY.png", title: "ICAPTUREHOMES PHOTOGRAPHY", color: 'black' },
+      { image: "/Seaside Media Group.png", title: "Seaside Media Group", color: 'black' },
+      { image: "/ERIC VISUALS.png", title: "ERIC VISUALS", color: 'white' },
+      { image: "/LPG.svg", title: "LPG", color: 'white' },
     ],
     video: '/video.mp4'
   },
