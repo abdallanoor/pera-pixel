@@ -89,7 +89,7 @@ export default function Hero() {
             className="rounded-full p-6 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 cursor-pointer"
             onClick={() => handleNavClick("#contact")}
           >
-            Contact Us
+            Get Started
           </Button>
         </motion.div>
         <motion.div
