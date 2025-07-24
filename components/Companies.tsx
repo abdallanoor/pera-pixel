@@ -15,13 +15,11 @@ export default function Companies() {
       >
         <div className="flex overflow-hidden w-4/5 mx-auto [mask-image:linear-gradient(to_right,transparent,black,transparent)]">
           <motion.div
-            animate={{
-              translateX: "-50%",
-            }}
+            animate={{ x: ["0%", "-50%"] }}
             transition={{
               duration: 25,
-              ease: "linear",
               repeat: Infinity,
+              ease: "linear",
               repeatType: "loop",
             }}
             className="flex gap-10 flex-none"
