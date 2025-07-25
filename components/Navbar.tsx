@@ -8,6 +8,7 @@ import ThemeToggle from "./theme-toggle";
 import MobileNav from "./MobileNav";
 import { Button } from "./ui/button";
 import { handleNavClick } from "@/lib/utils";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,10 +64,18 @@ export default function Navbar() {
               e.preventDefault();
               handleNavClick("#hero");
             }}
-            className="text-foreground font-bold text-lg flex-1"
+            className="text-lg flex-1"
           >
             <h1 className="sr-only">Perapixel</h1>
-            Perapixel
+            <Image
+              src="/perapixel logo.png"
+              alt="Perapixel Logo"
+              width={100}
+              height={30}
+              priority
+              draggable={false}
+              fetchPriority="high"
+            />
           </a>
 
           <ul className="flex items-center gap-2 max-md:hidden">

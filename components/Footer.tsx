@@ -2,13 +2,23 @@
 
 import { DATA } from "@/data/content";
 import { handleNavClick } from "@/lib/utils";
+import Image from "next/image";
 
 export default function Footer() {
   return (
     <footer className="container py-10">
       <div className="flex items-center justify-between gap-4 flex-col lg:flex-row py-10">
         <div className="flex-1">
-          <p className="font-medium">LOGO</p>
+          <Image
+            src="/footer logo.png"
+            alt="Perapixel Logo"
+            className="filter grayscale"
+            width={60}
+            height={60}
+            priority
+            draggable={false}
+            fetchPriority="high"
+          />
         </div>
         <ul className="flex items-center gap-2">
           {DATA.navbar.map((link, index) => (
