@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Perapixel",
+  title: "Perapixel Production",
   description:
     "Professional video editing services that transform your property listings into captivating visual experiences that sell.",
 };
