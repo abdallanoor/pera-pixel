@@ -52,13 +52,13 @@ export default function Hero() {
               Real Estate
             </span>
             <svg
-              className="absolute -bottom-2 lg:-bottom-3 left-0 w-full h-4 lg:h-6"
+              className="absolute -bottom-1.5 lg:-bottom-3 left-0 w-full h-4 lg:h-6"
               viewBox="0 0 200 20"
               preserveAspectRatio="none"
             >
               <path
                 d="M10,15 Q100,5 190,15"
-                stroke="#3b82f6"
+                stroke="#1447e6"
                 strokeWidth="3"
                 fill="none"
                 strokeLinecap="round"
