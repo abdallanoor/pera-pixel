@@ -1,24 +1,16 @@
 "use client";
 
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState, useRef, useEffect } from "react";
 import SectionHeader from "@/components/SectionHeader";
 import { DATA } from "@/data/content";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { useCarouselNavigation } from "@/hooks/use-carousel-navigation";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { AlertCircle, Play } from "lucide-react";
+import { AlertCircle, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   NavigationDotsProps,
+  ScrollCarouselProps,
   SectionInfoProps,
   Video,
-  VideoCarouselProps,
   VideoIframeProps,
 } from "@/types/video";
 
@@ -60,39 +52,48 @@ const VideoIframe = memo<VideoIframeProps>(({ src, className = "" }) => {
   }, []);
 
   return (
-    <div ref={ref} className={`w-full h-full ${className}`}>
-      {!hasIntersected ? (
-        <div className="w-full h-full flex items-center justify-center bg-muted/50 rounded-lg">
-          <div className="text-center">
-            <div className="w-12 h-12 mx-auto mb-2 bg-muted/70 rounded-full flex items-center justify-center">
-              <Play size={24} className="text-muted-foreground" />
+    <div ref={ref} className={`relative w-full h-full ${className}`}>
+      {/* Fixed height container to prevent layout shift */}
+      <div className="absolute inset-0 w-full h-full">
+        {!hasIntersected ? (
+          <div className="w-full h-full flex items-center justify-center bg-muted/50 rounded-lg">
+            <div className="text-center">
+              <div className="w-12 h-12 mx-auto mb-2 bg-muted/70 rounded-full flex items-center justify-center">
+                <Play size={24} className="text-muted-foreground" />
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="relative w-full h-full">
-          {isLoading && (
-            <div className="w-full h-full flex items-center justify-center bg-muted/50 backdrop-blur-sm rounded-lg">
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-              </div>
-            </div>
-          )}
-          {hasError ? (
-            <div className="w-full h-full flex items-center justify-center bg-muted/50 rounded-lg">
-              <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-2 bg-destructive/20 rounded-full flex items-center justify-center">
-                  <AlertCircle size={24} className="text-destructive" />
+        ) : (
+          <>
+            {/* Loading overlay */}
+            {isLoading && (
+              <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-muted/50 backdrop-blur-sm rounded-lg z-10">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
-                <span className="text-xs text-destructive">
-                  Failed to load video
-                </span>
               </div>
-            </div>
-          ) : (
+            )}
+
+            {/* Error overlay */}
+            {hasError && (
+              <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-muted/50 rounded-lg z-10">
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 bg-destructive/20 rounded-full flex items-center justify-center">
+                    <AlertCircle size={24} className="text-destructive" />
+                  </div>
+                  <span className="text-xs text-destructive">
+                    Failed to load video
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Iframe - always rendered to maintain layout */}
             <iframe
               src={iframeSrc}
-              className={`w-full h-full border-0 rounded-lg ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300 scheme-normal!`}
+              className={`absolute inset-0 w-full h-full border-0 rounded-lg transition-opacity duration-500 ${
+                isLoading || hasError ? "opacity-0" : "opacity-100"
+              } scheme-normal!`}
               allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
               allowFullScreen
               loading="lazy"
@@ -101,51 +102,154 @@ const VideoIframe = memo<VideoIframeProps>(({ src, className = "" }) => {
               onError={handleError}
               sandbox="allow-scripts allow-same-origin allow-presentation"
             />
-          )}
-        </div>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 });
 
 VideoIframe.displayName = "VideoIframe";
 
-const VideoCarousel = memo<VideoCarouselProps>(
-  ({ videos, itemClassName = "", showDots = true, type }) => {
-    const { currentIndex, setApi, goToSlide } = useCarouselNavigation();
-
-    const handleDotClick = useCallback(
-      (index: number) => {
-        goToSlide(index);
-      },
-      [goToSlide]
-    );
+const ScrollCarousel = memo<ScrollCarouselProps>(
+  ({ videos, showDots = true, type }) => {
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
 
     const aspectRatioClass =
       type === "horizontal" ? "aspect-video" : "aspect-[9/16]";
 
+    // Update scroll state
+    const updateScrollState = useCallback(() => {
+      if (!scrollContainerRef.current) return;
+
+      const container = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+
+      const itemWidth = container.children[0]?.clientWidth || 0;
+      const gap = 16; // gap-4 = 16px
+      const newIndex = Math.round(scrollLeft / (itemWidth + gap));
+      setCurrentIndex(Math.min(newIndex, videos.length - 1));
+    }, [videos.length]);
+
+    const scrollToIndex = useCallback((index: number) => {
+      if (!scrollContainerRef.current) return;
+
+      const container = scrollContainerRef.current;
+      const itemWidth = container.children[0]?.clientWidth || 0;
+      const gap = 16; // gap-4 = 16px
+      const scrollPosition = index * (itemWidth + gap);
+
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: "smooth",
+      });
+    }, []);
+
+    const scrollLeft = useCallback(() => {
+      const newIndex = Math.max(currentIndex - 1, 0);
+      scrollToIndex(newIndex);
+    }, [currentIndex, scrollToIndex]);
+
+    const scrollRight = useCallback(() => {
+      const newIndex = Math.min(currentIndex + 1, videos.length - 1);
+      scrollToIndex(newIndex);
+    }, [currentIndex, videos.length, scrollToIndex]);
+
+    const handleDotClick = useCallback(
+      (index: number) => {
+        scrollToIndex(index);
+      },
+      [scrollToIndex]
+    );
+
+    useEffect(() => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
+
+      updateScrollState();
+      container.addEventListener("scroll", updateScrollState);
+      window.addEventListener("resize", updateScrollState);
+
+      return () => {
+        container.removeEventListener("scroll", updateScrollState);
+        window.removeEventListener("resize", updateScrollState);
+      };
+    }, [updateScrollState]);
+
     return (
       <>
-        <Carousel
-          className="w-full"
-          setApi={setApi}
-          opts={{ align: "center", loop: false }}
-        >
-          <CarouselContent>
+        <div className="relative">
+          {/* Scroll Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth"
+            style={{
+              scrollSnapType: "x mandatory",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
             {videos.map((video, index) => (
-              <CarouselItem key={index} className={itemClassName}>
+              <div
+                key={index}
+                className="flex-shrink-0 w-full"
+                style={{
+                  scrollSnapAlign: "center",
+                }}
+              >
                 <div className={`${aspectRatioClass} w-full`}>
                   <VideoIframe src={video.src} />
                 </div>
-              </CarouselItem>
+              </div>
             ))}
-          </CarouselContent>
-          <div className="justify-center mt-4 gap-3 hidden lg:flex">
-            <CarouselPrevious />
-            <CarouselNext />
           </div>
-        </Carousel>
 
+          {/* Desktop Navigation Buttons */}
+          <div className="hidden lg:flex justify-center mt-4 gap-3">
+            <button
+              onClick={scrollLeft}
+              disabled={!canScrollLeft}
+              className={`p-2 rounded-full border transition-all duration-300 ${
+                canScrollLeft
+                  ? "bg-background border-border hover:bg-muted"
+                  : "bg-muted border-muted-foreground/20 cursor-not-allowed"
+              }`}
+              aria-label="Previous video"
+            >
+              <ChevronLeft
+                size={20}
+                className={
+                  canScrollLeft ? "text-foreground" : "text-muted-foreground"
+                }
+              />
+            </button>
+            <button
+              onClick={scrollRight}
+              disabled={!canScrollRight}
+              className={`p-2 rounded-full border transition-all duration-300 ${
+                canScrollRight
+                  ? "bg-background border-border hover:bg-muted"
+                  : "bg-muted border-muted-foreground/20 cursor-not-allowed"
+              }`}
+              aria-label="Next video"
+            >
+              <ChevronRight
+                size={20}
+                className={
+                  canScrollRight ? "text-foreground" : "text-muted-foreground"
+                }
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Dots */}
         {showDots && (
           <NavigationDots
             total={videos.length}
@@ -153,12 +257,18 @@ const VideoCarousel = memo<VideoCarouselProps>(
             onDotClick={handleDotClick}
           />
         )}
+
+        <style jsx>{`
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
       </>
     );
   }
 );
 
-VideoCarousel.displayName = "VideoCarousel";
+ScrollCarousel.displayName = "ScrollCarousel";
 
 const VideoGridItem = memo<{ video: Video; index: number }>(
   ({ video, index }) => (
@@ -191,7 +301,7 @@ export default function Portfolio() {
       <SectionHeader
         tag="Portfolio"
         title="Cinematic Visual Experiences"
-        discription="Here’s a look at some of our recent work. Each video is done to suit the space, with natural flow and clean visuals."
+        discription="Here's a look at some of our recent work. Each video is done to suit the space, with natural flow and clean visuals."
       />
 
       <motion.div
@@ -208,11 +318,7 @@ export default function Portfolio() {
             description="Craft an immersive journey, inviting your audience to authentically connect with your brand, captivating them with the distinctive style it exudes."
           />
           <div className="mt-2">
-            <VideoCarousel
-              type="horizontal"
-              itemClassName="max-md:basis-[85%]"
-              videos={horizontalVideos}
-            />
+            <ScrollCarousel type="horizontal" videos={horizontalVideos} />
           </div>
         </div>
 
@@ -225,11 +331,7 @@ export default function Portfolio() {
           />
           {/* Mobile Carousel */}
           <div className="md:hidden mt-2">
-            <VideoCarousel
-              type="vertical"
-              videos={verticalVideos}
-              itemClassName="basis-[85%]"
-            />
+            <ScrollCarousel type="vertical" videos={verticalVideos} />
           </div>
           {/* Desktop Grid */}
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">

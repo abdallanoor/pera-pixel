@@ -14,7 +14,7 @@ export interface VideoIframeProps {
   isVisible?: boolean;
 }
 
-export interface VideoCarouselProps {
+export interface ScrollCarouselProps {
   videos: Video[];
   itemClassName?: string;
   showDots?: boolean;
