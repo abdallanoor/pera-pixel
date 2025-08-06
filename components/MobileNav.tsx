@@ -7,6 +7,7 @@ import {
 import { handleNavClick } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 type MobileNavProps = {
   isOpen: boolean;
@@ -36,6 +37,26 @@ export default function MobileNav({ isOpen, setIsOpen }: MobileNavProps) {
         <X className="w-5 h-5" />
       </motion.button>
 
+      <a
+        href="#hero"
+        onClick={(e) => {
+          e.preventDefault();
+          handleNavClick("#hero", true, setIsOpen);
+        }}
+        className="absolute top-10 left-8 z-50"
+      >
+        <Image
+          src="/perapixel logo.png"
+          alt="Perapixel Logo"
+          className="filter grayscale"
+          width={100}
+          height={30}
+          priority
+          draggable={false}
+          fetchPriority="high"
+        />
+      </a>
+
       <nav
         className="h-full flex flex-col items-center justify-center bg-background"
         aria-label="Full Screen Navigation"
@@ -59,13 +80,13 @@ export default function MobileNav({ isOpen, setIsOpen }: MobileNavProps) {
                     e.preventDefault();
                     handleNavClick(item.href, true, setIsOpen);
                   }}
-                  className="flex items-center gap-6"
+                  className="flex items-center gap-2"
                 >
                   <motion.span className="text-2xl font-light text-muted-foreground tabular-nums min-w-[3rem]">
                     {(index + 1).toString().padStart(2, "0")}
                   </motion.span>
 
-                  <h2 className="text-5xl md:text-7xl font-bold text-foreground uppercase tracking-tight">
+                  <h2 className="text-[2.50rem] leading-none md:text-6xl font-bold text-foreground uppercase tracking-tight">
                     {item.title}
                   </h2>
                 </a>

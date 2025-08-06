@@ -11,7 +11,6 @@ interface Testimonial {
   name: string;
   role: string;
   content: string;
-  avatar: string;
 }
 
 interface TestimonialCardProps {
@@ -24,13 +23,13 @@ const TestimonialCard = memo(({ testimonial }: TestimonialCardProps) => (
     animate={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5 }}
-    className="rounded-3xl bg-neutral-100 dark:bg-neutral-900 p-8"
+    className="rounded-3xl bg-neutral-100 dark:bg-neutral-900 p-6"
   >
     <div className="flex flex-col items-start">
       <div className="flex gap-3 items-center">
         <div className="relative h-10 w-10 rounded-full overflow-hidden">
           <Image
-            src={testimonial.avatar || "placeholder-img.png"}
+            src="user.svg"
             alt={testimonial.name}
             fill
             className="object-cover"
@@ -70,7 +69,7 @@ const MarqueeColumn = memo(
             repeat: Infinity,
             ease: "linear",
           }}
-          className="space-y-8 py-4"
+          className="space-y-6 py-4"
         >
           {duplicatedTestimonials.map((testimonial, index) => (
             <TestimonialCard
@@ -106,7 +105,7 @@ export default function Testimonials() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative mt-14 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden sm:mt-16 md:grid-cols-2 lg:grid-cols-3"
+        className="relative mt-14 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-6 overflow-hidden sm:mt-16 md:grid-cols-2 lg:grid-cols-3"
       >
         <MarqueeColumn testimonials={column1} duration={20} />
         <MarqueeColumn
