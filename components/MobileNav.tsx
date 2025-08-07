@@ -46,7 +46,7 @@ export default function MobileNav({ isOpen, setIsOpen }: MobileNavProps) {
         className="absolute top-10 left-8 z-50"
       >
         <Image
-          src="/perapixel logo.png"
+          src="/perapixel-logo.png"
           alt="Perapixel Logo"
           className="filter grayscale"
           width={100}

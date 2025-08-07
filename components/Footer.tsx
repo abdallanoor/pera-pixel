@@ -9,16 +9,24 @@ export default function Footer() {
     <footer className="container py-10">
       <div className="flex items-center justify-between gap-4 flex-col lg:flex-row py-10">
         <div className="flex-1">
-          <Image
-            src="/footer logo.png"
-            alt="Perapixel Logo"
-            className="filter grayscale"
-            width={60}
-            height={60}
-            priority
-            draggable={false}
-            fetchPriority="high"
-          />
+          <a
+            href="#hero"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick("#hero");
+            }}
+          >
+            <Image
+              src="/perapixel-logo.png"
+              alt="Perapixel Logo"
+              className="filter grayscale"
+              width={100}
+              height={30}
+              priority
+              draggable={false}
+              fetchPriority="high"
+            />
+          </a>
         </div>
         <ul className="flex items-center gap-2">
           {DATA.navbar.map((link, index) => (
@@ -37,7 +45,7 @@ export default function Footer() {
           ))}
         </ul>
         <p className="flex-1 flex justify-end text-muted-foreground">
-          © 2025 Perapixel Agency
+          © 2025 Perapixel Production
         </p>
       </div>
 

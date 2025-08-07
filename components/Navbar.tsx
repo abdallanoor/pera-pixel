@@ -68,7 +68,7 @@ export default function Navbar() {
           >
             <h1 className="sr-only">Perapixel</h1>
             <Image
-              src="/perapixel logo.png"
+              src="/perapixel-logo.png"
               alt="Perapixel Logo"
               width={100}
               height={30}
