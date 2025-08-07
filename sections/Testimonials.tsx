@@ -93,7 +93,7 @@ export default function Testimonials() {
   const column3 = testimonials.slice(6, 9);
 
   return (
-    <section className="container relative py-12">
+    <section id="testimonials" className="container relative py-12">
       <SectionHeader
         title="What our clients say"
         tag="Testimonials"
