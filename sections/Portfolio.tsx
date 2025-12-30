@@ -2,7 +2,6 @@
 
 import { memo, useCallback, useState, useRef, useEffect } from "react";
 import SectionHeader from "@/components/SectionHeader";
-import { DATA } from "@/data/content";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { AlertCircle, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -13,6 +12,12 @@ import {
   Video,
   VideoIframeProps,
 } from "@/types/video";
+
+// Portfolio props interface
+interface PortfolioProps {
+  horizontalVideos?: Video[];
+  verticalVideos?: Video[];
+}
 
 const NavigationDots = memo<NavigationDotsProps>(
   ({ total, currentIndex, onDotClick }) => (
@@ -293,9 +298,10 @@ const SectionInfo = memo<SectionInfoProps>(({ title, description, id }) => (
 
 SectionInfo.displayName = "SectionInfo";
 
-export default function Portfolio() {
-  const { horizontalVideos, verticalVideos } = DATA.portfolio;
-
+export default function Portfolio({
+  horizontalVideos = [],
+  verticalVideos = [],
+}: PortfolioProps) {
   return (
     <section id="portfolio" className="container py-12">
       <SectionHeader
