@@ -43,7 +43,7 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="container fixed top-4 px-5 py-3.5 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10 rounded-full z-40 dark:bg-background/70"
+        className="container fixed top-3 px-5 py-3 inset-x-0 w-[95%] bg-background backdrop-blur-md border border-foreground/10 rounded-full z-40 dark:bg-background/70"
         initial={{ y: -100 }}
         animate={
           isOpen
