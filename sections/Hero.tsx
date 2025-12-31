@@ -1,13 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { DATA } from "@/data/content";
+// import { DATA } from "@/data/content";
 import { heroContainer, heroItem } from "@/lib/motionVariants";
 import { handleNavClick } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 
 export default function Hero() {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
       {/* Background Video */}
@@ -24,97 +28,58 @@ export default function Hero() {
       </video>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/70" />
 
       <motion.div
-        className="container relative z-10 flex h-full flex-col items-center gap-6 justify-center text-center text-white px-4 md:px-6"
+        className="container relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-4 md:px-6"
         variants={heroContainer}
         initial="hidden"
         animate="visible"
       >
-        <motion.div
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
-          variants={heroItem}
-        >
-          <Sparkles size={16} />
-          <span className="text-sm font-medium text-white/90">
-            Premium Video Solutions
-          </span>
-        </motion.div>
-
         <motion.h1
-          variants={heroItem}
-          className="mx-auto max-w-4xl text-center text-3xl font-bold md:text-4xl lg:text-7xl text-white"
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-7xl lg:text-8xl font-bold text-center mb-6 tracking-tight bg-gradient-to-b from-primary to-primary/70 bg-clip-text text-transparent"
         >
-          Elevate Your{" "}
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent">
-              Real Estate
-            </span>
-            <svg
-              className="absolute -bottom-1.5 lg:-bottom-3 left-0 w-full h-4 lg:h-6"
-              viewBox="0 0 200 20"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M10,15 Q100,5 190,15"
-                stroke="#1447e6"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                className="animate-drawLine"
-              />
-            </svg>
-          </span>{" "}
-          with Stunning Videos
+          PeraPixel Production
         </motion.h1>
 
         <motion.p
-          variants={heroItem}
-          className="max-w-4xl text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed"
+          variants={fadeUp}
+          transition={{ duration: 0.7 }}
+          className="relative text-lg md:text-xl lg:text-2xl text-white/80 text-center font-light leading-relaxed max-w-2xl mb-10"
         >
-          {DATA.hero.subtitle}
+          Bringing your vision to life
+          <svg
+            className="absolute -bottom-3 left-0 w-full"
+            viewBox="0 0 200 20"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M5,12 Q25,5 45,10 T85,12 Q125,8 165,11 T195,10"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+              className="opacity-70 animate-drawLine"
+            />
+          </svg>
         </motion.p>
         <motion.div
           className="mt-2 flex gap-4 max-md:flex-col"
           variants={heroItem}
         >
-          <Button
-            className="bg-blue-600 text-white rounded-full  p-6 hover:bg-blue-700 cursor-pointer"
-            onClick={() => handleNavClick("#portfolio")}
-          >
+          <Button size="lg" onClick={() => handleNavClick("#portfolio")}>
             Explore Our Projects
           </Button>
           <Button
-            className="rounded-full p-6 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 cursor-pointer"
+            size="lg"
+            className="bg-white/15 text-white hover:bg-white/20"
             onClick={() => handleNavClick("#contact")}
           >
             Get Started
           </Button>
-        </motion.div>
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.8 }}
-          onClick={() => handleNavClick("#companies")}
-        >
-          <motion.div
-            className="flex flex-col items-center gap-3 cursor-pointer group"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <span className="text-white/60 text-sm font-medium group-hover:text-white/80 transition-colors">
-              Scroll to discover
-            </span>
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors">
-              <motion.div
-                className="w-1 h-3 bg-white/60 rounded-full mt-2 group-hover:bg-white/80"
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              />
-            </div>
-          </motion.div>
         </motion.div>
       </motion.div>
     </section>
