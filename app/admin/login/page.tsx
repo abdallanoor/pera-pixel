@@ -209,7 +209,7 @@ function LoginFormFallback() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-[#020617] overflow-hidden p-6 text-white">
+    <div className="min-h-screen relative flex items-center justify-center bg-background dark:bg-[#020617] overflow-hidden p-6 text-foreground dark:text-white transition-colors duration-300">
       {/* Mesh Gradient Background Glows */}
       <motion.div
         animate={{
@@ -222,7 +222,7 @@ export default function LoginPage() {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-primary/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen opacity-50"
+        className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-blue-600/20 dark:bg-primary/30 rounded-full blur-[120px] pointer-events-none dark:mix-blend-screen opacity-50 transition-all duration-500"
       />
 
       <motion.div
@@ -236,7 +236,7 @@ export default function LoginPage() {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen opacity-50"
+        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-600/20 dark:bg-blue-600/30 rounded-full blur-[120px] pointer-events-none dark:mix-blend-screen opacity-50 transition-all duration-500"
       />
 
       <motion.div
@@ -249,15 +249,15 @@ export default function LoginPage() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[20%] left-[30%] w-[40%] h-[40%] bg-indigo-500/20 rounded-full blur-[100px] pointer-events-none mix-blend-overlay"
+        className="absolute top-[20%] left-[30%] w-[40%] h-[40%] bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none dark:mix-blend-overlay transition-all duration-500"
       />
 
       {/* Precise Tech Grid */}
       <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
+        className="absolute inset-0 opacity-[0.05] pointer-events-none [--grid-color:rgba(0,0,0,1)] dark:[--grid-color:rgba(255,255,255,0.1)]"
         style={{
           backgroundImage: `
-            radial-gradient(circle at center, rgba(255,255,255,0.1) 1px, transparent 1px)
+            radial-gradient(circle at center, var(--grid-color) 1px, transparent 1px)
           `,
           backgroundSize: "32px 32px",
           maskImage:
@@ -272,12 +272,12 @@ export default function LoginPage() {
         className="w-full max-w-[440px] relative z-10"
       >
         {/* Card Container with Advanced Glassmorphism */}
-        <div className="bg-background/40 backdrop-blur-[32px] border border-white/5 dark:border-primary/20 rounded-[32px] p-10 md:p-12 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.3)] relative overflow-hidden">
+        <div className="bg-background/40 backdrop-blur-[32px] border border-border/50 dark:border-primary/20 rounded-[32px] p-10 md:p-12 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.1)] dark:shadow-[0_32px_80px_-16px_rgba(0,0,0,0.3)] relative overflow-hidden transition-colors duration-300">
           {/* Internal Glow Effect */}
-          <div className="absolute -top-24 -left-24 w-48 h-48 bg-primary/20 blur-[60px] pointer-events-none" />
+          <div className="absolute -top-24 -left-24 w-48 h-48 bg-primary/10 dark:bg-primary/20 blur-[60px] pointer-events-none" />
 
           {/* Subtle Border Gradient */}
-          <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-primary/20 via-transparent to-blue-500/20 pointer-events-none opacity-40" />
+          <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 pointer-events-none opacity-40" />
 
           <div className="text-center relative mb-10">
             <motion.div
@@ -312,7 +312,7 @@ export default function LoginPage() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="space-y-2"
             >
-              <h1 className="text-3xl font-bold tracking-tight text-white">
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">
                 Admin Login
               </h1>
               <p className="text-muted-foreground text-sm">
